@@ -19,7 +19,7 @@
 		assert(n == (N + 1));                                          \
 		assert(!strcmp(xs[0], #I));                                    \
                                                                                \
-		cmd = mpd_new_command(T, N);                                        \
+		cmd = mpd_new_command(T, N);                                   \
 		__VA_ARGS__                                                    \
                                                                                \
 		for (i = 0; i < n; i++)                                        \
