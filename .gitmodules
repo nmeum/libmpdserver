@@ -1,3 +1,7 @@
 [submodule "mpc"]
 	path = mpc
 	url = git://github.com/nmeum/mpc.git
+[submodule "vendor/mpc"]
+	path = vendor/mpc
+	url = git://github.com/nmeum/mpc.git
+	branch = fix-109
