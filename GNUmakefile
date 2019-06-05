@@ -9,12 +9,13 @@ CFLAGS += -Wpedantic -Wall -Wextra -Wconversion -Wmissing-prototypes \
 
 CPPFLAGS += -I./include -I./vendor/mpc
 
-check: testrunner
-	cd tests && ./run.sh
-testrunner: testrunner.o libmpdserver.a
-	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 libmpdserver.a: mpc.o $(OBJECTS)
 	$(AR) rcs $@ $^
+testrunner: testrunner.o libmpdserver.a
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+check: testrunner
+	cd tests && ./run.sh
 
 mpc.o: mpc.c mpc.h
 	$(CC) -c $< -o $@ $(CFLAGS) -w -ansi
