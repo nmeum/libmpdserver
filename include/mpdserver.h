@@ -14,7 +14,12 @@ typedef enum {
 	MPD_CMD_STATUS,
 } mpd_cmd_t;
 
-typedef union _mpd_argument_t mpd_argument_t;
+typedef enum {
+	MPD_VAL_INT,
+	MPD_VAL_CMD,
+} mpd_val_t;
+
+typedef struct _mpd_argument_t mpd_argument_t;
 
 typedef struct {
 	mpd_cmd_t name;
@@ -22,9 +27,12 @@ typedef struct {
 	mpd_argument_t **argv;
 } mpd_command_t;
 
-union _mpd_argument_t {
-	int ival;
-	mpd_command_t cmdval;
+struct _mpd_argument_t {
+	mpd_val_t type;
+	union {
+		int ival;
+		mpd_command_t cmdval;
+	} v;
 };
 
 mpd_command_t *mpd_parse(FILE *);

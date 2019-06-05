@@ -28,10 +28,11 @@
 		return cmd;                                                    \
 	}
 
-#define mpd_arg(TYPE, CAST)                                                    \
+#define mpd_arg(TYPE, MEMBER, CAST)                                            \
 	do {                                                                   \
 		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
-		cmd->argv[i]->TYPE = *(CAST)xs[i + 1];                         \
+		cmd->argv[i]->type = TYPE;                                     \
+		cmd->argv[i]->v.MEMBER = *(CAST)xs[i + 1];                     \
 		++i;                                                           \
 	} while (0);
 
