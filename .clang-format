@@ -1,0 +1,21 @@
+BasedOnStyle: LLVM
+
+IndentWidth: 8
+UseTab: ForIndentation
+
+AlignOperands: true
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: Right
+IndentCaseLabels: false
+
+BreakBeforeBraces: WebKit
+AlwaysBreakAfterReturnType: TopLevelDefinitions
+
+AllowShortIfStatementsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortLoopsOnASingleLine: false
+
+DerivePointerAlignment: false
+PointerAlignment: Right
