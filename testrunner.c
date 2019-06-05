@@ -10,7 +10,7 @@ main(void)
 	mpd_command_t *cmd;
 
 	if ((cmd = mpd_parse(stdin))) {
-		mpd_freecmd(cmd);
+		mpd_free_command(cmd);
 		ret = EXIT_SUCCESS;
 	} else {
 		ret = EXIT_FAILURE;

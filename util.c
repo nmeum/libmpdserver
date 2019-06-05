@@ -45,7 +45,7 @@ mpd_newcmd(mpd_cmd_t t, size_t argc)
 }
 
 void
-mpd_freecmd(mpd_command_t *cmd)
+mpd_free_command(mpd_command_t *cmd)
 {
 	size_t i;
 

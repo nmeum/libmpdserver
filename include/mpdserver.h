@@ -28,6 +28,6 @@ union _mpd_argument_t {
 };
 
 mpd_command_t *mpd_parse(FILE *);
-void mpd_freecmd(mpd_command_t *);
+void mpd_free_command(mpd_command_t *);
 
 #endif

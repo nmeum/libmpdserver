@@ -61,5 +61,5 @@ mpd_list_cmds(void)
 	lend = mpc_and(2, mpcf_fst, endstr, mpc_newline(), free);
 
 	cmds = mpc_many1(mpdf_fold_command, mpd_command_primitive());
-	return mpc_and(3, mpdf_fold_list, lbeg, cmds, lend, free, mpd_freecmd);
+	return mpc_and(3, mpdf_fold_list, lbeg, cmds, lend, free, mpd_free_command);
 }
