@@ -1,0 +1,4 @@
+name: idle
+argv:
+  - type: str
+    value: database

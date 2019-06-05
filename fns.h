@@ -8,6 +8,8 @@
 #include "mpc.h"
 #include "mpdserver.h"
 
+#define LENGTH(X) (sizeof(X) / sizeof(X[0]))
+
 #define mpdf_fold(I, N, ...)                                                   \
 	static mpc_val_t *mpdf_##I(int n, mpc_val_t **xs)                      \
 	{                                                                      \
@@ -36,12 +38,21 @@
 		++i;                                                           \
 	} while (0);
 
+#define mpd_str_arg()                                                          \
+	do {                                                                   \
+		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
+		cmd->argv[i]->type = MPD_VAL_STR;                              \
+		cmd->argv[i]->v.sval = xstrdup((char *)xs[i + 1]);             \
+		++i;                                                           \
+	} while (0);
+
 mpc_parser_t *mpd_playback_cmds(void);
 mpc_parser_t *mpd_status_cmds(void);
 mpc_parser_t *mpd_list_cmds(void);
 
 mpc_parser_t *mpd_argument(mpc_parser_t *);
 mpc_parser_t *mpd_binary(void);
+mpc_parser_t *mpd_string(void);
 mpc_parser_t *mpd_command_primitive(void);
 mpc_parser_t *mpd_cmd_noarg(char *);
 

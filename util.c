@@ -44,6 +44,14 @@ mpd_new_command(char *name, size_t argc)
 	return cmd;
 }
 
+static void
+mpd_free_argument(mpd_argument_t *arg)
+{
+	if (arg->type == MPD_VAL_STR)
+		free(arg->v.sval);
+	free(arg);
+}
+
 void
 mpd_free_command(mpd_command_t *cmd)
 {
@@ -52,7 +60,7 @@ mpd_free_command(mpd_command_t *cmd)
 	if (cmd->name)
 		free(cmd->name);
 	for (i = 0; i < cmd->argc; i++)
-		free(cmd->argv[i]);
+		mpd_free_argument(cmd->argv[i]);
 	if (cmd->argv)
 		free(cmd->argv);
 	free(cmd);

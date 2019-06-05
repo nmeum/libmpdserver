@@ -14,6 +14,8 @@ format_val(mpd_val_t val)
 	switch (val) {
 	case MPD_VAL_INT:
 		return "int";
+	case MPD_VAL_STR:
+		return "str";
 	case MPD_VAL_CMD:
 		return "cmd";
 	default:
@@ -28,6 +30,9 @@ format_arg(int ident, mpd_argument_t *arg)
 	switch (arg->type) {
 		case MPD_VAL_INT:
 			printf("%d\n", arg->v.ival);
+			break;
+		case MPD_VAL_STR:
+			printf("%s\n", arg->v.sval);
 			break;
 		case MPD_VAL_CMD:
 			printf("\n");

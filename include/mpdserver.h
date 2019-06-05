@@ -6,6 +6,7 @@
 
 typedef enum {
 	MPD_VAL_INT,
+	MPD_VAL_STR,
 	MPD_VAL_CMD,
 } mpd_val_t;
 
@@ -21,6 +22,7 @@ struct _mpd_argument_t {
 	mpd_val_t type;
 	union {
 		int ival;
+		char *sval;
 		mpd_command_t cmdval;
 	} v;
 };

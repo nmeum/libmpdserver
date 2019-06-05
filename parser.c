@@ -14,6 +14,15 @@ mpd_command(void)
 	return mpc_or(2, mpd_list_cmds(), mpd_command_primitive());
 }
 
+static int
+mpd_check_quote(mpc_val_t **val)
+{
+	char *ptr;
+
+	ptr = (char *)*val;
+	return *ptr != '"';
+}
+
 static mpc_parser_t *
 mpd_whitespace(void)
 {
@@ -52,6 +61,17 @@ mpc_parser_t *
 mpd_binary(void)
 {
 	return mpc_expect(mpc_apply(mpc_oneof("01"), mpcf_int), "binary");
+}
+
+mpc_parser_t *
+mpd_string(void)
+{
+	mpc_parser_t *str, *strcheck;
+
+	str = mpc_many(mpcf_strfold, mpc_noneof(" \t\n"));
+	strcheck = mpc_check(str, mpd_check_quote, "missing closing '\"'");
+
+	return mpc_or(2, mpc_string_lit(), strcheck);
 }
 
 mpc_parser_t *
