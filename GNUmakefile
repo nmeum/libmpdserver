@@ -9,6 +9,10 @@ CFLAGS += -Wpedantic -Wall -Wextra -Wconversion -Wmissing-prototypes \
 
 CPPFLAGS += -I./include -I./vendor/mpc
 
+check: testrunner
+	cd tests && ./run.sh
+testrunner: testrunner.o libmpdserver.a
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 libmpdserver.a: mpc.o $(OBJECTS)
 	$(AR) rcs $@ $^
 
@@ -18,3 +22,4 @@ mpc.o: mpc.c mpc.h
 	$(CC) -c -o $@ $< $(CPPFLAGS) $(CFLAGS)
 
 VPATH += vendor/mpc
+.PHONY: check

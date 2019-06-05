@@ -1,0 +1,4 @@
+command_list_begin
+consume 1
+crossfade 1
+command_list_end
