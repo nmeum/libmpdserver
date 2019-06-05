@@ -28,7 +28,7 @@ mpdf_command_noarg(mpc_val_t *val, void *arg)
 	(void)val;
 
 	cid = (mpd_cmd_t *)arg;
-	return mpd_newcmd(*cid, 0);
+	return mpd_new_command(*cid, 0);
 }
 
 mpc_parser_t *

@@ -19,7 +19,7 @@
 		assert(n == (N + 1));                                          \
 		assert(!strcmp(xs[0], #I));                                    \
                                                                                \
-		cmd = mpd_newcmd(T, N);                                        \
+		cmd = mpd_new_command(T, N);                                        \
 		__VA_ARGS__                                                    \
                                                                                \
 		for (i = 0; i < n; i++)                                        \
@@ -47,6 +47,6 @@ mpc_parser_t *mpd_cmd_noarg(char *, mpd_cmd_t);
 
 void *xmalloc(size_t);
 char *xstrdup(char *);
-mpd_command_t *mpd_newcmd(mpd_cmd_t, size_t);
+mpd_command_t *mpd_new_command(mpd_cmd_t, size_t);
 
 #endif

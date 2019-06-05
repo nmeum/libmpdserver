@@ -28,7 +28,7 @@ xstrdup(char *s)
 }
 
 mpd_command_t *
-mpd_newcmd(mpd_cmd_t t, size_t argc)
+mpd_new_command(mpd_cmd_t t, size_t argc)
 {
 	mpd_command_t *cmd;
 
