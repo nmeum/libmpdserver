@@ -51,5 +51,7 @@ mpd_free_command(mpd_command_t *cmd)
 
 	for (i = 0; i < cmd->argc; i++)
 		free(cmd->argv[i]);
+	if (cmd->argv)
+		free(cmd->argv);
 	free(cmd);
 }
