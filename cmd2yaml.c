@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <err.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -6,6 +7,20 @@
 #include "mpdserver.h"
 
 static void format_cmd(int, mpd_command_t *);
+
+static char *
+format_val(mpd_val_t val)
+{
+	switch (val) {
+	case MPD_VAL_INT:
+		return "int";
+	case MPD_VAL_CMD:
+		return "cmd";
+	default:
+		assert(0);
+		return NULL;
+	}
+}
 
 static void
 format_arg(int ident, mpd_argument_t *arg)
@@ -38,7 +53,7 @@ format_cmd(int ident, mpd_command_t *cmd)
 	for (i = 0; i < cmd->argc; i++) {
 		arg = cmd->argv[i];
 
-		printf("%*s- type: %u\n", ident, "", arg->type);
+		printf("%*s- type: %s\n", ident, "", format_val(arg->type));
 		ident += 2;
 
 		printf("%*svalue: ", ident, "");
