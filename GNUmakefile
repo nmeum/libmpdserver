@@ -11,13 +11,13 @@ CPPFLAGS += -I./include -I./vendor/mpc
 
 libmpdserver.a: mpc.o $(OBJECTS)
 	$(AR) rcs $@ $^
-testrunner: testrunner.o libmpdserver.a
+recognizer: recognizer.o libmpdserver.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-check: testrunner
+check: recognizer
 	cd tests && ./run.sh
 format:
-	clang-format -style=file -i testrunner.c $(SOURCES) $(HEADERS)
+	clang-format -style=file -i recognizer.c $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
 		-e 's/[ \t]*static/static/' \
 		-e 's/static mpc_parser_t \*\(.+\)/static mpc_parser_t\*\n\1/'

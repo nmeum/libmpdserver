@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TESTRUNNER="$(pwd)/../testrunner"
+TESTRUNNER="$(pwd)/../recognizer"
 
 result=0
 for test in *; do
