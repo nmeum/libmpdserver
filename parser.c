@@ -36,13 +36,7 @@ mpdf_command_noarg(mpc_val_t *val)
 mpc_parser_t *
 mpd_cmd_noarg(char *cmdstr)
 {
-	return mpc_apply(mpd_cmdstr(cmdstr), mpdf_command_noarg);
-}
-
-mpc_parser_t *
-mpd_cmdstr(char *name)
-{
-	return mpc_string(name);
+	return mpc_apply(mpc_string(cmdstr), mpdf_command_noarg);
 }
 
 mpc_parser_t *

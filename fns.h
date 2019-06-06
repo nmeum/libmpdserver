@@ -40,7 +40,6 @@ mpc_parser_t *mpd_playback_cmds(void);
 mpc_parser_t *mpd_status_cmds(void);
 mpc_parser_t *mpd_list_cmds(void);
 
-mpc_parser_t *mpd_cmdstr(char *);
 mpc_parser_t *mpd_argument(mpc_parser_t *);
 mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_command_primitive(void);

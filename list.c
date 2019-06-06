@@ -49,9 +49,9 @@ mpd_list_cmds(void)
 {
 	mpc_parser_t *endstr, *startstrs, *lbeg, *lend, *cmds;
 
-	startstrs = mpc_or(2, mpd_cmdstr("command_list_begin"),
-	                   mpd_cmdstr("command_list_ok_begin"));
-	endstr = mpd_cmdstr("command_list_end");
+	startstrs = mpc_or(2, mpc_string("command_list_begin"),
+	                   mpc_string("command_list_ok_begin"));
+	endstr = mpc_string("command_list_end");
 
 	lbeg = mpc_and(2, mpcf_fst, startstrs, mpc_newline(), free);
 	lend = mpc_and(2, mpcf_fst, endstr, mpc_newline(), free);
