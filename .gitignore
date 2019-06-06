@@ -1,5 +1,3 @@
 *.o
 libmpdserver.a
-
 cmd2yaml
-recognizer

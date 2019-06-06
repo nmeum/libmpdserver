@@ -1,4 +1,3 @@
-PROGSRC = cmd2yaml.c recognizer.c
 SOURCES = parser.c playback.c status.c list.c util.c
 OBJECTS = $(SOURCES:.c=.o)
 HEADERS = fns.h include/mpdserver.h
@@ -14,13 +13,11 @@ libmpdserver.a: mpc.o $(OBJECTS)
 	$(AR) rcs $@ $^
 cmd2yaml: cmd2yaml.o libmpdserver.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
-recognizer: recognizer.o libmpdserver.a
-	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-check: recognizer
+check: cmd2yaml
 	cd tests && ./run.sh
 format:
-	clang-format -style=file -i $(PROGSRC) $(SOURCES) $(HEADERS)
+	clang-format -style=file -i cmd2yaml $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
 		-e 's/[ \t]*static/static/' \
 		-e 's/static mpc_parser_t \*\(.+\)/static mpc_parser_t\*\n\1/'

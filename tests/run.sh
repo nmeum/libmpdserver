@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TESTRUNNER="$(pwd)/../recognizer"
+TESTRUNNER="$(pwd)/../cmd2yaml"
 
 result=0
 for test in *; do
@@ -12,7 +12,7 @@ for test in *; do
 	exitstatus=0
 	read -r exitstatus < "${test}/exit"
 
-	(cd "${test}" && "${TESTRUNNER}" <input)
+	(cd "${test}" && "${TESTRUNNER}" <input >/dev/null)
 	ret=$?
 
 	if [ ${ret} -ne ${exitstatus} ]; then
