@@ -2,6 +2,10 @@
 
 TESTRUNNER="$(pwd)/../cmd2yaml"
 
+dir=${TMPDIR:-/tmp}/libmpdserver
+trap "rm -rf '${dir}' 2>/dev/null" INT EXIT
+mkdir -p "${dir}"
+
 result=0
 for test in *; do
 	[ -d "${test}" ] || continue
@@ -9,15 +13,24 @@ for test in *; do
 	name=${test##*/}
 	printf "Running test case '%s': " "${name}"
 
-	exitstatus=0
-	read -r exitstatus < "${test}/exit"
-
-	(cd "${test}" && "${TESTRUNNER}" <input >/dev/null)
+	(cd "${test}" && "${TESTRUNNER}" <input >"${dir}/out.pre")
 	ret=$?
 
-	if [ ${ret} -ne ${exitstatus} ]; then
+	test -r "${test}/output.yml"
+	expected=$?
+
+	if [ ${ret} -ne ${expected} ]; then
 		printf "FAIL: Expected '%d', got '%d'.\n" \
-			"${exitstatus}" "${ret}"
+			"${expected}" "${ret}" 2>&1
+
+		result=1
+		continue
+	fi
+
+	sed 's/[ \t]*$//' < "${dir}/out.pre" > "${dir}/out"
+	if [ ${ret} -eq 0 ] && ! cmp -s "${dir}/out" "${test}/output.yml"; then
+		printf "FAIL: Output didn't match.\n" 2>&1
+		diff -u "${dir}/out" "${test}/output.yml" 1>&2
 
 		result=1
 		continue

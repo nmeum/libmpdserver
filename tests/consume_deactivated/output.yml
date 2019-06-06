@@ -1,0 +1,4 @@
+name: consume
+argv:
+  - type: int
+    value: 0

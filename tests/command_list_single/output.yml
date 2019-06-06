@@ -1,0 +1,8 @@
+name: command_list_begin
+argv:
+  - type: cmd
+    value:
+      name: consume
+      argv:
+        - type: int
+          value: 1
