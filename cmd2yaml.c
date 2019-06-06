@@ -5,6 +5,25 @@
 
 #include "mpdserver.h"
 
+static void format_cmd(int, mpd_command_t *);
+
+static void
+format_arg(int ident, mpd_argument_t *arg)
+{
+	switch (arg->type) {
+		case MPD_VAL_INT:
+			printf("%d\n", arg->v.ival);
+			break;
+		case MPD_VAL_CMD:
+			printf("\n");
+			format_cmd(ident + 2, &arg->v.cmdval);
+			break;
+		default:
+			errx(EXIT_FAILURE, "unsupported type: %u\n", arg->type);
+			break;
+	}
+}
+
 static void
 format_cmd(int ident, mpd_command_t *cmd)
 {
@@ -23,18 +42,7 @@ format_cmd(int ident, mpd_command_t *cmd)
 		ident += 2;
 
 		printf("%*svalue: ", ident, "");
-		switch (arg->type) {
-		case MPD_VAL_INT:
-			printf("%d\n", arg->v.ival);
-			break;
-		case MPD_VAL_CMD:
-			printf("\n");
-			format_cmd(ident + 2, &arg->v.cmdval);
-			break;
-		default:
-			errx(EXIT_FAILURE, "unsupported type: %u\n", arg->type);
-			break;
-		}
+		format_arg(ident, arg);
 
 		ident -= 2;
 	}
