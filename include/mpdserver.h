@@ -5,16 +5,6 @@
 #include <stdio.h>
 
 typedef enum {
-	MPD_CMD_LIST,
-	MPD_CMD_LIST_OK,
-
-	MPD_CMD_CONSUME,
-	MPD_CMD_CROSSFADE,
-	MPD_CMD_CURRENTSONG,
-	MPD_CMD_STATUS,
-} mpd_cmd_t;
-
-typedef enum {
 	MPD_VAL_INT,
 	MPD_VAL_CMD,
 } mpd_val_t;
@@ -22,7 +12,7 @@ typedef enum {
 typedef struct _mpd_argument_t mpd_argument_t;
 
 typedef struct {
-	mpd_cmd_t name;
+	char *name;
 	size_t argc;
 	mpd_argument_t **argv;
 } mpd_command_t;

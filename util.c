@@ -28,12 +28,12 @@ xstrdup(char *s)
 }
 
 mpd_command_t *
-mpd_new_command(mpd_cmd_t t, size_t argc)
+mpd_new_command(char *name, size_t argc)
 {
 	mpd_command_t *cmd;
 
 	cmd = xmalloc(sizeof(*cmd));
-	cmd->name = t;
+	cmd->name = (name) ? xstrdup(name) : NULL;
 	cmd->argc = argc;
 
 	if (argc > 0)
@@ -49,6 +49,8 @@ mpd_free_command(mpd_command_t *cmd)
 {
 	size_t i;
 
+	if (cmd->name)
+		free(cmd->name);
 	for (i = 0; i < cmd->argc; i++)
 		free(cmd->argv[i]);
 	if (cmd->argv)

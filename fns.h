@@ -8,7 +8,7 @@
 #include "mpc.h"
 #include "mpdserver.h"
 
-#define mpdf_fold(I, T, N, ...)                                                \
+#define mpdf_fold(I, N, ...)                                                   \
 	static mpc_val_t *mpdf_##I(int n, mpc_val_t **xs)                      \
 	{                                                                      \
 		int i;                                                         \
@@ -19,7 +19,7 @@
 		assert(n == (N + 1));                                          \
 		assert(!strcmp(xs[0], #I));                                    \
                                                                                \
-		cmd = mpd_new_command(T, N);                                   \
+		cmd = mpd_new_command(#I, N);                                  \
 		__VA_ARGS__                                                    \
                                                                                \
 		for (i = 0; i < n; i++)                                        \
@@ -44,10 +44,10 @@ mpc_parser_t *mpd_cmdstr(char *);
 mpc_parser_t *mpd_argument(mpc_parser_t *);
 mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_command_primitive(void);
-mpc_parser_t *mpd_cmd_noarg(char *, mpd_cmd_t);
+mpc_parser_t *mpd_cmd_noarg(char *);
 
 void *xmalloc(size_t);
 char *xstrdup(char *);
-mpd_command_t *mpd_new_command(mpd_cmd_t, size_t);
+mpd_command_t *mpd_new_command(char *, size_t);
 
 #endif

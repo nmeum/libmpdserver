@@ -12,7 +12,7 @@ mpdf_fold_command(int n, mpc_val_t **xs)
 
 	assert(n > 0);
 
-	cmd = mpd_new_command(MPD_CMD_LIST, (size_t)n);
+	cmd = mpd_new_command(NULL, (size_t)n);
 	for (i = 0; i < n; i++) {
 		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));
 		cmd->argv[i]->type = MPD_VAL_CMD;
@@ -26,25 +26,20 @@ static mpc_val_t *
 mpdf_fold_list(int n, mpc_val_t **xs)
 {
 	mpd_command_t *cmd;
-	mpd_cmd_t name;
 	char *lstart;
 
 	assert(n == 3);
 	assert(!strcmp(xs[n - 1], "command_list_end"));
 
 	lstart = (char *)xs[0];
-	if (!strcmp(lstart, "command_list_begin"))
-		name = MPD_CMD_LIST;
-	else if (!strcmp(lstart, "command_list_ok_begin"))
-		name = MPD_CMD_LIST_OK;
-	else
-		assert(0);
+	assert(!strcmp(lstart, "command_list_begin") ||
+	       !strcmp(lstart, "command_list_ok_begin"));
 
-	free(xs[0]);
 	free(xs[n - 1]);
 
 	cmd = (mpd_command_t *)xs[1];
-	cmd->name = name;
+	assert(!cmd->name);
+	cmd->name = lstart;
 
 	return cmd;
 }

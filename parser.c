@@ -21,20 +21,22 @@ mpd_whitespace(void)
 }
 
 static mpc_val_t *
-mpdf_command_noarg(mpc_val_t *val, void *arg)
+mpdf_command_noarg(mpc_val_t *val)
 {
-	mpd_cmd_t *cid;
+	mpd_command_t *cmd;
+	char *str;
 
-	(void)val;
+	str = (char *)val;
+	cmd = mpd_new_command(str, 0);
 
-	cid = (mpd_cmd_t *)arg;
-	return mpd_new_command(*cid, 0);
+	free(val);
+	return cmd;
 }
 
 mpc_parser_t *
-mpd_cmd_noarg(char *cmdstr, mpd_cmd_t cmd)
+mpd_cmd_noarg(char *cmdstr)
 {
-	return mpc_apply_to(mpd_cmdstr(cmdstr), mpdf_command_noarg, &cmd);
+	return mpc_apply(mpd_cmdstr(cmdstr), mpdf_command_noarg);
 }
 
 mpc_parser_t *

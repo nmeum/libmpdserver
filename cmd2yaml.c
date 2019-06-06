@@ -11,7 +11,7 @@ format_cmd(int ident, mpd_command_t *cmd)
 	size_t i;
 	mpd_argument_t *arg;
 
-	printf("%*sname: %u\n", ident, "", cmd->name);
+	printf("%*sname: %s\n", ident, "", cmd->name);
 	printf("%*sargc: %zu\n", ident, "", cmd->argc);
 	printf("%*sargv:\n", ident, "");
 

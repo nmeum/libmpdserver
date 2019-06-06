@@ -4,13 +4,13 @@
 static mpc_parser_t *
 mpd_currentsong(void)
 {
-	return mpd_cmd_noarg("currentsong", MPD_CMD_CURRENTSONG);
+	return mpd_cmd_noarg("currentsong");
 }
 
 static mpc_parser_t *
 mpd_status(void)
 {
-	return mpd_cmd_noarg("status", MPD_CMD_STATUS);
+	return mpd_cmd_noarg("status");
 }
 
 mpc_parser_t *
