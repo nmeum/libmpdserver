@@ -38,7 +38,8 @@
 		++i;                                                           \
 	} while (0);
 
-#define mpd_str_arg()                                                          \
+#define MPD_ARG_INT mpd_arg(MPD_VAL_INT, ival, int *)
+#define MPD_ARG_STRING                                                         \
 	do {                                                                   \
 		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
 		cmd->argv[i]->type = MPD_VAL_STR;                              \

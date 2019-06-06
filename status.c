@@ -38,7 +38,7 @@ mpd_status(void)
 	return mpd_cmd_noarg("status");
 }
 
-mpdf_fold(idle, 1, mpd_str_arg())
+mpdf_fold(idle, 1, MPD_ARG_STRING)
 
 static mpc_parser_t *mpd_idle(void)
 {
