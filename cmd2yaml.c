@@ -46,7 +46,10 @@ format_cmd(int ident, mpd_command_t *cmd)
 	mpd_argument_t *arg;
 
 	printf("%*sname: %s\n", ident, "", cmd->name);
-	printf("%*sargv:\n", ident, "");
+	if (!cmd->argc)
+		printf("%*sargv: []\n", ident, "");
+	else
+		printf("%*sargv:\n", ident, "");
 
 	ident += 2;
 	for (i = 0; i < cmd->argc; i++) {
