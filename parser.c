@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <sys/types.h>
+
 #include "fns.h"
 #include "mpc.h"
 #include "mpdserver.h"
@@ -42,6 +44,36 @@ mpdf_command_noarg(mpc_val_t *val)
 	return cmd;
 }
 
+static mpc_val_t *
+mpdf_fold_range(int n, mpc_val_t **xs)
+{
+	int i;
+	int start, end;
+
+	assert(n == 3);
+	assert(*(char *)xs[1] == ':');
+
+	start = atoi((char *)xs[0]);
+	end = (xs[2]) ? atoi((char *)xs[2]) : -1;
+
+	for (i = 0; i < n; i++)
+		free(xs[i]);
+
+	assert(start > 0);
+	return mpd_new_range((size_t)start, (ssize_t)end);
+}
+
+mpc_val_t *
+mpdf_range(mpc_val_t *val)
+{
+	int pos;
+
+	pos = *(int *)val;
+	assert(pos > 0);
+
+	return mpd_new_range((size_t)pos, (size_t)pos);
+}
+
 mpc_parser_t *
 mpd_cmd_noarg(char *cmdstr)
 {
@@ -78,6 +110,13 @@ mpd_time(void)
 }
 
 mpc_parser_t *
+mpd_range(void)
+{
+	return mpc_and(3, mpdf_fold_range, mpc_digits(), mpc_char(':'),
+	               mpc_maybe(mpc_digits()), free, free);
+}
+
+mpc_parser_t *
 mpd_string(void)
 {
 	mpc_parser_t *str, *strcheck;
@@ -94,8 +133,8 @@ mpd_command_primitive(void)
 	mpc_parser_t *cmd;
 
 	/* TODO: mpc_or all parsers */
-	cmd = mpc_or(3, mpd_playback_cmds(), mpd_status_cmds(),
-	             mpd_control_cmds());
+	cmd = mpc_or(4, mpd_playback_cmds(), mpd_status_cmds(),
+	             mpd_control_cmds(), mpd_queue_cmds());
 
 	return mpc_and(2, mpcf_fst, cmd, mpc_newline(), free);
 }

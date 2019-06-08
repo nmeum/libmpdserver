@@ -40,6 +40,7 @@
 
 #define MPD_ARG_INT mpd_arg(MPD_VAL_INT, ival, int *)
 #define MPD_ARG_FLOAT mpd_arg(MPD_VAL_FLOAT, fval, float *)
+#define MPD_ARG_RANGE mpd_arg(MPD_VAL_RANGE, rval, mpd_range_t *)
 #define MPD_ARG_STRING                                                         \
 	do {                                                                   \
 		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
@@ -52,16 +53,21 @@ mpc_parser_t *mpd_playback_cmds(void);
 mpc_parser_t *mpd_status_cmds(void);
 mpc_parser_t *mpd_list_cmds(void);
 mpc_parser_t *mpd_control_cmds(void);
+mpc_parser_t *mpd_queue_cmds(void);
 
 mpc_parser_t *mpd_argument(mpc_parser_t *);
 mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_time(void);
+mpc_parser_t *mpd_range(void);
 mpc_parser_t *mpd_string(void);
 mpc_parser_t *mpd_command_primitive(void);
 mpc_parser_t *mpd_cmd_noarg(char *);
 
+mpc_val_t *mpdf_range(mpc_val_t *);
+
 void *xmalloc(size_t);
 char *xstrdup(char *);
+mpd_range_t *mpd_new_range(size_t, ssize_t);
 mpd_command_t *mpd_new_command(char *, size_t);
 
 #endif

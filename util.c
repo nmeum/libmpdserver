@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <sys/types.h>
+
 #include "fns.h"
 
 void *
@@ -25,6 +27,18 @@ xstrdup(char *s)
 		err(EXIT_FAILURE, "strdup failed");
 
 	return r;
+}
+
+mpd_range_t *
+mpd_new_range(size_t start, ssize_t end)
+{
+	mpd_range_t *range;
+
+	range = xmalloc(sizeof(*range));
+	range->start = start;
+	range->end = end;
+
+	return range;
 }
 
 mpd_command_t *

@@ -1,0 +1,4 @@
+name: delete
+argv:
+  - type: range
+    value: 1337:1337
