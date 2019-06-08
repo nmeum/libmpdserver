@@ -64,6 +64,20 @@ mpd_binary(void)
 }
 
 mpc_parser_t *
+mpd_time(void)
+{
+	mpc_parser_t *pre, *sep, *fra, *par;
+
+	pre = mpc_maybe_lift(mpc_digits(), mpcf_ctor_str);
+	sep = mpc_char('.');
+
+	fra = mpc_and(3, mpcf_strfold, pre, sep, mpc_digits(), free, free);
+	par = mpc_or(2, fra, mpc_digits(), free);
+
+	return mpc_expect(mpc_apply(par, mpcf_float), "time");
+}
+
+mpc_parser_t *
 mpd_string(void)
 {
 	mpc_parser_t *str, *strcheck;
@@ -80,7 +94,8 @@ mpd_command_primitive(void)
 	mpc_parser_t *cmd;
 
 	/* TODO: mpc_or all parsers */
-	cmd = mpc_or(2, mpd_playback_cmds(), mpd_status_cmds());
+	cmd = mpc_or(3, mpd_playback_cmds(), mpd_status_cmds(),
+	             mpd_control_cmds());
 
 	return mpc_and(2, mpcf_fst, cmd, mpc_newline(), free);
 }

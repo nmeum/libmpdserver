@@ -1,0 +1,6 @@
+name: seek
+argv:
+  - type: int
+    value: 23
+  - type: float
+    value: 0.5

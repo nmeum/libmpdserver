@@ -16,6 +16,8 @@ format_val(mpd_val_t val)
 		return "int";
 	case MPD_VAL_STR:
 		return "str";
+	case MPD_VAL_FLOAT:
+		return "float";
 	case MPD_VAL_CMD:
 		return "cmd";
 	default:
@@ -33,6 +35,9 @@ format_arg(int ident, mpd_argument_t *arg)
 			break;
 		case MPD_VAL_STR:
 			printf("%s\n", arg->v.sval);
+			break;
+		case MPD_VAL_FLOAT:
+			printf("%.1f\n", arg->v.fval);
 			break;
 		case MPD_VAL_CMD:
 			printf("\n");

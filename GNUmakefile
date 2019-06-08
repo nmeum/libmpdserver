@@ -1,4 +1,4 @@
-SOURCES = parser.c playback.c status.c list.c util.c
+SOURCES = parser.c playback.c status.c control.c list.c util.c
 OBJECTS = $(SOURCES:.c=.o)
 HEADERS = fns.h include/mpdserver.h
 
