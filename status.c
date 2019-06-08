@@ -40,7 +40,8 @@ mpd_status(void)
 
 mpdf_fold(idle, 1, MPD_ARG_STRING)
 
-static mpc_parser_t *mpd_idle(void)
+static mpc_parser_t *
+mpd_idle(void)
 {
 	mpc_parser_t *subsys;
 

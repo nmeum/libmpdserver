@@ -3,7 +3,8 @@
 
 mpdf_fold(consume, 1, MPD_ARG_INT)
 
-static mpc_parser_t *mpd_consume(void)
+static mpc_parser_t *
+mpd_consume(void)
 {
 	return mpc_and(2, mpdf_consume, mpc_string("consume"),
 	               mpd_argument(mpd_binary()), free);
@@ -11,7 +12,8 @@ static mpc_parser_t *mpd_consume(void)
 
 mpdf_fold(crossfade, 1, MPD_ARG_INT)
 
-static mpc_parser_t *mpd_crossfade(void)
+static mpc_parser_t *
+mpd_crossfade(void)
 {
 	return mpc_and(2, mpdf_crossfade, mpc_string("crossfade"),
 	               mpd_argument(mpc_int()), free);

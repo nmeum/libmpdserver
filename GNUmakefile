@@ -20,7 +20,7 @@ format:
 	clang-format -style=file -i cmd2yaml $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
 		-e 's/[ \t]*static/static/' \
-		-e 's/static mpc_parser_t \*\(.+\)/static mpc_parser_t\*\n\1/'
+		-e 's/static mpc_parser_t \*\(..*\)/static mpc_parser_t \*\n\1/'
 
 mpc.o: mpc.c mpc.h
 	$(CC) -c $< -o $@ $(CFLAGS) -w -ansi
