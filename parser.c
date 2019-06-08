@@ -103,11 +103,17 @@ mpd_command_primitive(void)
 mpd_command_t *
 mpd_parse(FILE *stream)
 {
+	mpd_command_t *cmd;
+	mpc_parser_t *par;
 	mpc_result_t r;
 
-	if (mpc_parse_pipe("", stream, mpd_command(), &r)) {
-		return (mpd_command_t *)r.output;
+	par = mpd_command();
+	if (mpc_parse_pipe("", stream, par, &r)) {
+		cmd = (mpd_command_t *)r.output;
 	} else {
-		return NULL;
+		cmd = NULL;
 	}
+
+	mpc_cleanup(1, par);
+	return cmd;
 }
