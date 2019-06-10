@@ -68,6 +68,7 @@ mpc_val_t *mpdf_range(mpc_val_t *);
 
 void *xmalloc(size_t);
 char *xstrdup(char *);
+void *xrealloc(void *, size_t);
 mpd_range_t *mpd_new_range(size_t, ssize_t);
 mpd_command_t *mpd_new_command(char *, size_t);
 

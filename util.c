@@ -29,6 +29,17 @@ xstrdup(char *s)
 	return r;
 }
 
+void *
+xrealloc(void *ptr, size_t size)
+{
+	void *r;
+
+	if (!(r = realloc(ptr, size)))
+		err(EXIT_FAILURE, "realloc failed");
+
+	return r;
+}
+
 mpd_range_t *
 mpd_new_range(size_t start, ssize_t end)
 {

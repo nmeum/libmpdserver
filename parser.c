@@ -32,6 +32,35 @@ mpd_whitespace(void)
 }
 
 static mpc_val_t *
+mpdf_unescape(mpc_val_t *val)
+{
+	unsigned short esc;
+	size_t i, oldlen, newlen;
+	char *oldstr, *newstr;
+
+	oldstr = val;
+	oldlen = strlen(oldstr);
+
+	newlen = 0;
+	newstr = xmalloc(sizeof(char) * oldlen);
+
+	for (i = 0; i < oldlen; i++) {
+		if (oldstr[i] == '\\' && !esc) {
+			esc = 1;
+			continue;
+		}
+
+		newstr[newlen++] = oldstr[i];
+		esc = 0;
+	}
+
+	free(val);
+	newstr = xrealloc(newstr, newlen + 1);
+	newstr[newlen] = '\0';
+	return newstr;
+}
+
+static mpc_val_t *
 mpdf_command_noarg(mpc_val_t *val)
 {
 	mpd_command_t *cmd;
@@ -124,7 +153,7 @@ mpd_string(void)
 	str = mpc_many(mpcf_strfold, mpc_noneof(" \t\n"));
 	strcheck = mpc_check(str, mpd_check_quote, "missing closing '\"'");
 
-	return mpc_or(2, mpc_string_lit(), strcheck);
+	return mpc_or(2, mpc_apply(mpc_string_lit(), mpdf_unescape), strcheck);
 }
 
 mpc_parser_t *
