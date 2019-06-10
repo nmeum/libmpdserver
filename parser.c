@@ -128,6 +128,18 @@ mpd_string(void)
 }
 
 mpc_parser_t *
+mpd_uri(void)
+{
+	/* Unfortunately, a URI argument is either a URI or a file name.
+	 * While a URI is properly defined in RFC 3986 a file name can
+	 * be pretty much anything though mpd itself doesn't seem to
+	 * allow `.` and `..` as path elements in file names.
+	 * Nonetheless, it doesn't make sense to validate URIs properly
+	 * since every invalid URI is likely a valid file name. */
+	return mpd_string();
+}
+
+mpc_parser_t *
 mpd_command_primitive(void)
 {
 	mpc_parser_t *cmd;

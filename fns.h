@@ -60,6 +60,7 @@ mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_time(void);
 mpc_parser_t *mpd_range(void);
 mpc_parser_t *mpd_string(void);
+mpc_parser_t *mpd_uri(void);
 mpc_parser_t *mpd_command_primitive(void);
 mpc_parser_t *mpd_cmd_noarg(char *);
 

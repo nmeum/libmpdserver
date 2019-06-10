@@ -1,0 +1,4 @@
+name: add
+argv:
+  - type: str
+    value: foo/bar/baz.opus
