@@ -14,6 +14,8 @@ main(void)
 	mpc_parser_t *userinfo = mpc_new("userinfo");
 	mpc_parser_t *host = mpc_new("host");
 	mpc_parser_t *port = mpc_new("port");
+	mpc_parser_t *IPv4address = mpc_new("IPv4address");
+	mpc_parser_t *dec_octet = mpc_new("dec_octet");
 	mpc_parser_t *reg_name = mpc_new("reg_name");
 	mpc_parser_t *path_abempty = mpc_new("path_abempty");
 	mpc_parser_t *segment = mpc_new("segment");
@@ -34,8 +36,11 @@ main(void)
 
 		" authority    : ( <userinfo> \"@\" )? <host> ( \":\" <port> )? ;\n"
 		" userinfo     : ( <unreserved> | <pct_encoded> | <sub_delims> | \":\" )* ;\n"
-		" host         : <reg_name> ;\n" /* TODO: IP addresses */
+		" host         : <reg_name> | <IPv4address> ;\n" /* TODO: IP-literal */
 		" port         : <digit>* ;\n"
+
+		" IPv4address  : <dec_octet> \".\" <dec_octet> \".\" <dec_octet> \".\" <dec_octet> ;\n"
+		" dec_octet    : /[0-9]/ | /[10-99]/ | /[100-199]/ | /[200-249]/ | /[250-255]/ ;\n"
 
 		" reg_name     : ( <unreserved> | <pct_encoded> | <sub_delims> )* ;\n"
 
@@ -62,6 +67,8 @@ main(void)
 	userinfo,
 	host,
 	port,
+	IPv4address,
+	dec_octet,
 	reg_name,
 	path_abempty,
 	segment,
@@ -81,7 +88,7 @@ main(void)
     return EXIT_FAILURE;
   }
 
-  if (mpc_parse("file", "http://google.com/foo", URI, &r)) {
+  if (mpc_parse("file", "http://127.0.0.1/foo", URI, &r)) {
 	mpc_ast_print(r.output);
 	mpc_ast_delete(r.output);
   } else {
