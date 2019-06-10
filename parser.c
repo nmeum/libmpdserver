@@ -112,9 +112,11 @@ mpd_cmd_noarg(char *cmdstr)
 mpc_parser_t *
 mpd_argument(mpc_parser_t *a)
 {
-	mpc_parser_t *sep;
+	mpc_parser_t *sep, *spaces;
 
-	sep = mpc_expect(mpd_whitespace(), "argument");
+	spaces = mpc_many1(mpcf_fst_free, mpd_whitespace());
+	sep = mpc_expect(spaces, "argument");
+
 	return mpc_and(2, mpcf_snd_free, sep, a, free);
 }
 
