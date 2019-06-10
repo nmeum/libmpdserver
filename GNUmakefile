@@ -17,7 +17,7 @@ cmd2yaml: cmd2yaml.o libmpdserver.a
 check: cmd2yaml
 	cd tests && ./run.sh
 format:
-	clang-format -style=file -i cmd2yaml $(SOURCES) $(HEADERS)
+	clang-format -style=file -i cmd2yaml.c $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
 		-e 's/[ \t]*static/static/' \
 		-e 's/static mpc_parser_t \*\(..*\)/static mpc_parser_t \*\n\1/'
