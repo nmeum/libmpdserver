@@ -60,6 +60,7 @@ mpc_parser_t *mpd_status_cmds(void);
 mpc_parser_t *mpd_list_cmds(void);
 mpc_parser_t *mpd_control_cmds(void);
 mpc_parser_t *mpd_queue_cmds(void);
+mpc_parser_t *mpd_database_cmds(void);
 
 mpc_parser_t *mpd_argument(mpc_parser_t *);
 mpc_parser_t *mpd_binary(void);

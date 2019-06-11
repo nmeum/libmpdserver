@@ -18,10 +18,12 @@ format_val(mpd_val_t val)
 		return "str";
 	case MPD_VAL_FLOAT:
 		return "float";
-	case MPD_VAL_CMD:
-		return "cmd";
 	case MPD_VAL_RANGE:
 		return "range";
+	case MPD_VAL_EXPR:
+		return "expr";
+	case MPD_VAL_CMD:
+		return "cmd";
 	default:
 		assert(0);
 		return NULL;
@@ -43,6 +45,9 @@ format_arg(int ident, mpd_argument_t *arg)
 		break;
 	case MPD_VAL_RANGE:
 		printf("%zu:%zd\n", arg->v.rval.start, arg->v.rval.end);
+		break;
+	case MPD_VAL_EXPR:
+		printf("TODO\n");
 		break;
 	case MPD_VAL_CMD:
 		printf("\n");
