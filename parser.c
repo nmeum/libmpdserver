@@ -193,6 +193,7 @@ mpd_parse(FILE *stream)
 	if (mpc_parse_pipe("", stream, par, &r)) {
 		cmd = (mpd_command_t *)r.output;
 	} else {
+		mpc_err_delete(r.error);
 		cmd = NULL;
 	}
 
