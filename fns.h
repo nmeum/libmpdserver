@@ -24,30 +24,25 @@
 		cmd = mpd_new_command(#I, N);                                  \
 		__VA_ARGS__                                                    \
                                                                                \
-		for (i = 0; i < n; i++)                                        \
-			free(xs[i]);                                           \
-                                                                               \
+		free(xs[0]);                                                   \
 		return cmd;                                                    \
 	}
 
-#define mpd_arg(TYPE, MEMBER, CAST)                                            \
+#define mpd_arg(TYPE, MEMBER, CONV, FREE)                                      \
 	do {                                                                   \
 		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
 		cmd->argv[i]->type = TYPE;                                     \
-		cmd->argv[i]->v.MEMBER = *(CAST)xs[i + 1];                     \
-		++i;                                                           \
+		cmd->argv[i]->v.MEMBER = CONV xs[i + 1];                       \
+                                                                               \
+		i++;                                                           \
+		if (FREE)                                                      \
+			free(xs[i]);                                           \
 	} while (0);
 
-#define MPD_ARG_INT mpd_arg(MPD_VAL_INT, ival, int *)
-#define MPD_ARG_FLOAT mpd_arg(MPD_VAL_FLOAT, fval, float *)
-#define MPD_ARG_RANGE mpd_arg(MPD_VAL_RANGE, rval, mpd_range_t *)
-#define MPD_ARG_STRING                                                         \
-	do {                                                                   \
-		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
-		cmd->argv[i]->type = MPD_VAL_STR;                              \
-		cmd->argv[i]->v.sval = xstrdup((char *)xs[i + 1]);             \
-		++i;                                                           \
-	} while (0);
+#define MPD_ARG_INT mpd_arg(MPD_VAL_INT, ival, *(int *), 1)
+#define MPD_ARG_FLOAT mpd_arg(MPD_VAL_FLOAT, fval, *(float *), 1)
+#define MPD_ARG_RANGE mpd_arg(MPD_VAL_RANGE, rval, *(mpd_range_t *), 1)
+#define MPD_ARG_STRING mpd_arg(MPD_VAL_STR, sval, (char *), 0)
 
 mpc_parser_t *mpd_playback_cmds(void);
 mpc_parser_t *mpd_status_cmds(void);
