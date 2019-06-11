@@ -72,10 +72,12 @@ mpd_new_command(char *name, size_t argc)
 static void
 mpd_free_argument(mpd_argument_t *arg)
 {
-	if (arg->type == MPD_VAL_STR)
+	if (arg->type == MPD_VAL_STR || arg->type == MPD_VAL_EXPR_STR)
 		free(arg->v.sval);
-	if (arg->type == MPD_VAL_CMD)
+	else if (arg->type == MPD_VAL_CMD)
 		mpd_free_command(arg->v.cmdval);
+	else if (arg->type == MPD_VAL_EXPR)
+		mpd_free_expression(arg->v.eval);
 	free(arg);
 }
 

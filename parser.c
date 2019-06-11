@@ -25,13 +25,13 @@ mpd_check_quote(mpc_val_t **val)
 	return *ptr != '"';
 }
 
-static mpc_parser_t *
+mpc_parser_t *
 mpd_whitespace(void)
 {
 	return mpc_expect(mpc_oneof(" \t"), "whitespace");
 }
 
-static mpc_val_t *
+mpc_val_t *
 mpdf_unescape(mpc_val_t *val)
 {
 	unsigned short esc;
@@ -192,18 +192,41 @@ mpd_command_primitive(void)
 mpd_command_t *
 mpd_parse(FILE *stream)
 {
+	size_t i;
+	mpd_expression_t *expr;
+	mpd_argument_t *c;
 	mpd_command_t *cmd;
 	mpc_parser_t *par;
 	mpc_result_t r;
 
+	cmd = NULL;
 	par = mpd_command();
+
 	if (mpc_parse_pipe("", stream, par, &r)) {
 		cmd = (mpd_command_t *)r.output;
 	} else {
 		mpc_err_delete(r.error);
-		cmd = NULL;
+		goto ret;
 	}
 
+	/* TODO: There is now easy way to unescape the input string
+	 * before processing it further. Woraround: call mpc_parse twice. */
+	for (i = 0; i < cmd->argc; i++) {
+		c = cmd->argv[i];
+		if (c->type != MPD_VAL_EXPR_STR)
+			continue;
+
+		if (!(expr = mpd_expression(c->v.sval))) {
+			mpd_free_command(cmd);
+			goto ret;
+		}
+
+		free(c->v.sval);
+		c->v.eval = expr;
+		c->type = MPD_VAL_EXPR;
+	}
+
+ret:
 	mpc_cleanup(1, par);
 	return cmd;
 }

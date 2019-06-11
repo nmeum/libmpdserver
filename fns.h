@@ -53,6 +53,7 @@
 #define MPD_ARG_FLOAT mpd_arg(MPD_VAL_FLOAT, fval, *(float *), 1)
 #define MPD_ARG_RANGE mpd_arg(MPD_VAL_RANGE, rval, *(mpd_range_t *), 1)
 #define MPD_ARG_STRING mpd_arg(MPD_VAL_STR, sval, (char *), 0)
+#define MPD_ARG_EXPR mpd_arg(MPD_VAL_EXPR_STR, sval, (char *), 0)
 
 mpc_parser_t *mpd_playback_cmds(void);
 mpc_parser_t *mpd_status_cmds(void);
@@ -68,13 +69,17 @@ mpc_parser_t *mpd_string(void);
 mpc_parser_t *mpd_uri(void);
 mpc_parser_t *mpd_command_primitive(void);
 mpc_parser_t *mpd_cmd_noarg(char *);
+mpc_parser_t *mpd_whitespace(void);
 
 mpc_val_t *mpdf_range(mpc_val_t *);
+mpc_val_t *mpdf_unescape(mpc_val_t *);
 
 void *xmalloc(size_t);
 char *xstrdup(char *);
 void *xrealloc(void *, size_t);
 mpd_range_t *mpd_new_range(size_t, ssize_t);
 mpd_command_t *mpd_new_command(char *, size_t);
+void mpd_free_expression(void *);
+mpd_expression_t *mpd_expression(char *);
 
 #endif
