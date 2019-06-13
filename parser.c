@@ -44,7 +44,7 @@ mpdf_unescape(mpc_val_t *val)
 	newlen = 0;
 	newstr = xmalloc(sizeof(char) * oldlen);
 
-	for (i = 0; i < oldlen; i++) {
+	for (esc = 0, i = 0; i < oldlen; i++) {
 		if (oldstr[i] == '\\' && !esc) {
 			esc = 1;
 			continue;
