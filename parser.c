@@ -99,6 +99,7 @@ mpdf_range(mpc_val_t *val)
 
 	pos = *(int *)val;
 	assert(pos > 0);
+	free(val);
 
 	return mpd_new_range((size_t)pos, (size_t)pos);
 }
