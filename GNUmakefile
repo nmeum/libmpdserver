@@ -15,7 +15,7 @@ cmd2yaml: cmd2yaml.o libmpdserver.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 check: cmd2yaml
-	cd tests && ./run.sh
+	cd tests && ./cmd2yaml.sh
 format:
 	clang-format -style=file -i cmd2yaml.c $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
