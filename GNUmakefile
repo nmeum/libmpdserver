@@ -16,6 +16,8 @@ cmd2yaml: cmd2yaml.o libmpdserver.a
 
 check: cmd2yaml
 	cd tests && ./cmd2yaml.sh
+valgrind: cmd2yaml
+	cd tests && ./valgrind.sh
 format:
 	clang-format -style=file -i cmd2yaml.c $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
@@ -28,4 +30,4 @@ mpc.o: mpc.c mpc.h
 	$(CC) -c -o $@ $< $(CPPFLAGS) $(CFLAGS)
 
 VPATH += vendor/mpc
-.PHONY: check format
+.PHONY: check valgrind format
