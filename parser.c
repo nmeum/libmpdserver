@@ -179,7 +179,7 @@ mpd_command_primitive(void)
 	cmd = mpc_or(4, mpd_playback_cmds(), mpd_status_cmds(),
 	             mpd_control_cmds(), mpd_queue_cmds());
 
-	return mpc_and(2, mpcf_fst, cmd, mpc_newline(), free);
+	return mpc_and(2, mpcf_fst, cmd, mpc_newline(), mpd_free_command);
 }
 
 mpd_command_t *
