@@ -4,7 +4,22 @@ Library for parsing [MPD][musicpd] client commands.
 
 ## Status
 
-Proof of concept.
+Currently primarily a toy project for experimenting with parser
+combinators. Buggy, incomplete and unstable at the moment.
+
+## Compilation
+
+Compile using:
+
+	$ make
+
+Run the test suite using:
+
+	$ make check
+
+Perform some sanity check with valgrind using:
+
+	$ make valgrind
 
 ## License
 
