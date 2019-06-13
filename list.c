@@ -16,7 +16,7 @@ mpdf_fold_command(int n, mpc_val_t **xs)
 	for (i = 0; i < n; i++) {
 		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));
 		cmd->argv[i]->type = MPD_VAL_CMD;
-		cmd->argv[i]->v.cmdval = *(mpd_command_t *)xs[i];
+		cmd->argv[i]->v.cmdval = (mpd_command_t *)xs[i];
 	}
 
 	return cmd;

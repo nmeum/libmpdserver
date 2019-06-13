@@ -33,7 +33,7 @@ struct _mpd_argument_t {
 		char *sval;
 		float fval;
 		mpd_range_t rval;
-		mpd_command_t cmdval;
+		mpd_command_t *cmdval;
 	} v;
 };
 

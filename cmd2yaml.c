@@ -46,7 +46,7 @@ format_arg(int ident, mpd_argument_t *arg)
 		break;
 	case MPD_VAL_CMD:
 		printf("\n");
-		format_cmd(ident + 2, &arg->v.cmdval);
+		format_cmd(ident + 2, arg->v.cmdval);
 		break;
 	default:
 		errx(EXIT_FAILURE, "unsupported type: %u\n", arg->type);

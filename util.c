@@ -74,6 +74,8 @@ mpd_free_argument(mpd_argument_t *arg)
 {
 	if (arg->type == MPD_VAL_STR)
 		free(arg->v.sval);
+	if (arg->type == MPD_VAL_CMD)
+		mpd_free_command(arg->v.cmdval);
 	free(arg);
 }
 
