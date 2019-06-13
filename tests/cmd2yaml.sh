@@ -21,7 +21,7 @@ for test in *; do
 
 	if [ ${ret} -ne ${expected} ]; then
 		printf "FAIL: Expected '%d', got '%d'.\n" \
-			"${expected}" "${ret}" 2>&1
+			"${expected}" "${ret}"
 
 		result=1
 		continue
@@ -29,8 +29,8 @@ for test in *; do
 
 	sed 's/[ \t]*$//' < "${dir}/out.pre" > "${dir}/out"
 	if [ ${ret} -eq 0 ] && ! cmp -s "${dir}/out" "${test}/output.yml"; then
-		printf "FAIL: Output didn't match.\n" 2>&1
-		diff -u "${dir}/out" "${test}/output.yml" 1>&2
+		printf "FAIL: Output didn't match.\n"
+		diff -u "${dir}/out" "${test}/output.yml"
 
 		result=1
 		continue
