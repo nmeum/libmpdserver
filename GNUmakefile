@@ -18,6 +18,9 @@ check: cmd2yaml
 	cd tests && ./cmd2yaml.sh
 valgrind: cmd2yaml
 	cd tests && ./valgrind.sh
+radamsa: cmd2yaml
+	cd tests && ./radamsa.sh
+
 format:
 	clang-format -style=file -i cmd2yaml.c $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
@@ -30,4 +33,4 @@ mpc.o: mpc.c mpc.h
 	$(CC) -c -o $@ $< $(CPPFLAGS) $(CFLAGS)
 
 VPATH += vendor/mpc
-.PHONY: check valgrind format
+.PHONY: check valgrind radamsa format
