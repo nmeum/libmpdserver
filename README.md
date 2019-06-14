@@ -7,6 +7,14 @@ Parser combinator library for [MPD][musicpd] client commands.
 Currently primarily a toy project for experimenting with parser
 combinators. Buggy, incomplete and unstable at the moment.
 
+## Design Goals
+
+This library attempts to follow some of [langsec][langsec website]
+principles outlined in [\[1\]][curing the vulnerable parsers]. This
+include a strict input grammar enforced using a parser combinator and
+performing full input recognition in the library before doing further
+processing in the application.
+
 ## Compilation
 
 Compile using:
@@ -37,3 +45,5 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 [musicpd]: https://musicpd.org/
+[langsec website]: http://langsec.org/
+[curing the vulnerable parsers]: https://www.usenix.org/publications/login/spring2017/bratus
