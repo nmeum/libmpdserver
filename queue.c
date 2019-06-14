@@ -6,7 +6,8 @@ mpdf_fold(add, 1, MPD_ARG_STRING)
 static mpc_parser_t *
 mpd_add(void)
 {
-	return mpc_and(2, mpdf_add, mpc_string("add"), mpd_argument(mpd_uri()));
+	return mpc_and(2, mpdf_add, mpc_string("add"), mpd_argument(mpd_uri()),
+	               free);
 }
 
 mpdf_fold(delete, 1, MPD_ARG_RANGE)
