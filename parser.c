@@ -88,7 +88,10 @@ mpdf_fold_range(int n, mpc_val_t **xs)
 	for (i = 0; i < n; i++)
 		free(xs[i]);
 
-	assert(start > 0);
+	/* TODO: start shouldn't be negative, but might be due to an
+	 * integer overflow. Unfortunately, we can't signal an error
+	 * from a fold function and thus can't handle this properly. */
+	/* assert(start >= 0); */
 	return mpd_new_range((size_t)start, (ssize_t)end);
 }
 
@@ -98,7 +101,10 @@ mpdf_range(mpc_val_t *val)
 	int pos;
 
 	pos = *(int *)val;
-	assert(pos > 0);
+	/* TODO: pos shouldn't be negative, but might be due to an
+	 * integer overflow. Unfortunately, we can't signal an error
+	 * from a apply function and thus can't handle this properly. */
+	/* assert(pos >= 0); */
 	free(val);
 
 	return mpd_new_range((size_t)pos, (size_t)pos);
