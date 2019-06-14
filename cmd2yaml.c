@@ -3,10 +3,32 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "mpdserver.h"
 
 static void format_cmd(int, mpd_command_t *);
+
+static char *
+format_op(mpd_operation_t op)
+{
+	switch (op) {
+	case MPD_OP_NONE:
+		return "";
+	case MPD_OP_EQUAL:
+		return "==";
+	case MPD_OP_NEQUAL:
+		return "!=";
+	case MPD_OP_CONTAINS:
+		return "contains";
+	case MPD_OP_MATCH:
+		return "=~";
+	case MPD_OP_NMATCH:
+		return "!~";
+	default:
+		assert(0);
+	}
+}
 
 static char *
 format_val(mpd_val_t val)
@@ -31,6 +53,26 @@ format_val(mpd_val_t val)
 }
 
 static void
+format_expr(int ident, mpd_expression_t *expr)
+{
+	printf("%*sname: %s\n", ident, "", expr->name);
+	printf("%*soperation: %s\n", ident, "", format_op(expr->op));
+
+	printf("%*sargument: ", ident, "");
+	if (!strcmp(expr->name, "AND") || !strcmp(expr->name, "NOT")) {
+		printf("\n");
+		format_expr(ident + 2, expr->o1.expr);
+	} else {
+		printf("%s\n", expr->o1.str);
+	}
+
+	if (expr->next) {
+		printf("%*snext:\n", ident, "");
+		format_expr(ident + 2, expr->next);
+	}
+}
+
+static void
 format_arg(int ident, mpd_argument_t *arg)
 {
 	switch (arg->type) {
@@ -47,7 +89,8 @@ format_arg(int ident, mpd_argument_t *arg)
 		printf("%zu:%zd\n", arg->v.rval.start, arg->v.rval.end);
 		break;
 	case MPD_VAL_EXPR:
-		printf("TODO\n");
+		printf("\n");
+		format_expr(ident + 2, arg->v.eval);
 		break;
 	case MPD_VAL_CMD:
 		printf("\n");
