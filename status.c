@@ -38,7 +38,7 @@ mpd_status(void)
 	return mpd_cmd_noarg("status");
 }
 
-mpdf_fold(idle, MPD_ARG_STRING)
+mpdf_fold(idle, mpd_opt_arg(MPD_ARG_STRING))
 
 static mpc_parser_t *
 mpd_idle(void)
@@ -46,8 +46,8 @@ mpd_idle(void)
 	mpc_parser_t *subsys;
 
 	subsys = mpc_check(mpd_string(), mpd_check_subsys, "invalid subsystem");
-	return mpc_and(2, mpdf_idle, mpc_string("idle"), mpd_argument(subsys),
-	               free);
+	return mpc_and(2, mpdf_idle, mpc_string("idle"),
+	               mpc_maybe(mpd_argument(subsys)), free);
 }
 
 mpc_parser_t *
