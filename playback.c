@@ -1,7 +1,7 @@
 #include "fns.h"
 #include "mpc.h"
 
-mpdf_fold(consume, 1, MPD_ARG_INT)
+mpdf_fold(consume, MPD_ARG_INT)
 
 static mpc_parser_t *
 mpd_consume(void)
@@ -10,7 +10,7 @@ mpd_consume(void)
 	               mpd_argument(mpd_binary()), free);
 }
 
-mpdf_fold(crossfade, 1, MPD_ARG_INT)
+mpdf_fold(crossfade, MPD_ARG_INT)
 
 static mpc_parser_t *
 mpd_crossfade(void)

@@ -1,7 +1,7 @@
 #include "fns.h"
 #include "mpc.h"
 
-mpdf_fold(add, 1, MPD_ARG_STRING)
+mpdf_fold(add, MPD_ARG_STRING)
 
 static mpc_parser_t *
 mpd_add(void)
@@ -10,7 +10,7 @@ mpd_add(void)
 	               free);
 }
 
-mpdf_fold(delete, 1, MPD_ARG_RANGE)
+mpdf_fold(delete, MPD_ARG_RANGE)
 
 static mpc_parser_t *
 mpd_delete(void)

@@ -10,7 +10,7 @@
 
 #define LENGTH(X) (sizeof(X) / sizeof(X[0]))
 
-#define mpdf_fold(I, N, ...)                                                   \
+#define mpdf_fold(I, ...)                                                      \
 	static mpc_val_t *mpdf_##I(int n, mpc_val_t **xs)                      \
 	{                                                                      \
 		int i;                                                         \
@@ -18,10 +18,10 @@
                                                                                \
 		i = 0;                                                         \
                                                                                \
-		assert(n == (N + 1));                                          \
+		assert(n > 0);                                                 \
 		assert(!strcmp(xs[0], #I));                                    \
                                                                                \
-		cmd = mpd_new_command(#I, N);                                  \
+		cmd = mpd_new_command(#I, (size_t)n - 1);                      \
 		__VA_ARGS__                                                    \
                                                                                \
 		free(xs[0]);                                                   \

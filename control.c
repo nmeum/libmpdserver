@@ -1,7 +1,7 @@
 #include "fns.h"
 #include "mpc.h"
 
-mpdf_fold(seek, 2, MPD_ARG_INT MPD_ARG_FLOAT)
+mpdf_fold(seek, MPD_ARG_INT MPD_ARG_FLOAT)
 
 static mpc_parser_t *
 mpd_seek(void)
