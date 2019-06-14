@@ -1,6 +1,6 @@
 # libmpdserver
 
-Library for parsing [MPD][musicpd] client commands.
+Parser combinator library for [MPD][musicpd] client commands.
 
 ## Status
 
