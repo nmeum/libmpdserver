@@ -1,0 +1,7 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: artist
+      operation: =~
+      argument: foo'bar

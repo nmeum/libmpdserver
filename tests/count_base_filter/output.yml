@@ -1,0 +1,7 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: base
+      operation:
+      argument: foo bar baz

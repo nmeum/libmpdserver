@@ -1,0 +1,7 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: title
+      operation: ==
+      argument: test test test

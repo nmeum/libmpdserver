@@ -1,0 +1,10 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: NOT
+      operation:
+      argument:
+        name: AudioFormat
+        operation: ==
+        argument: SAMPLERATE:BITS:CHANNELS

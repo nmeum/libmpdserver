@@ -1,0 +1,7 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: file
+      operation: ==
+      argument: MY FILE

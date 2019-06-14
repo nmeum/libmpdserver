@@ -1,0 +1,24 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: AND
+      operation:
+      argument:
+        name: NOT
+        operation:
+        argument:
+          name: AND
+          operation:
+          argument:
+            name: base
+            operation:
+            argument: foo bar baz
+          next:
+            name: artist
+            operation: !=
+            argument: foobar
+      next:
+        name: modified-since
+        operation:
+        argument: 1337

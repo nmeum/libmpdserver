@@ -1,0 +1,14 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: AND
+      operation:
+      argument:
+        name: file
+        operation: ==
+        argument: FILE
+      next:
+        name: modified-since
+        operation:
+        argument: MODIFIED
