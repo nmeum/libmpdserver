@@ -32,7 +32,7 @@ static char *mpd_tag_names[] = {
     "musicbrainz_workid",
 };
 
-static int
+int
 mpd_check_tag_name(mpc_val_t **val)
 {
 	size_t i;

@@ -1,0 +1,9 @@
+name: count
+argv:
+  - type: expr
+    value:
+      name: base
+      operation:
+      argument: foo123
+  - type: str
+    value: artist

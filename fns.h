@@ -82,5 +82,6 @@ mpd_range_t *mpd_new_range(size_t, ssize_t);
 mpd_command_t *mpd_new_command(char *, size_t);
 void mpd_free_expression(void *);
 mpd_expression_t *mpd_expression(char *);
+int mpd_check_tag_name(mpc_val_t **);
 
 #endif
