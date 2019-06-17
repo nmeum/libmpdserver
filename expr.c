@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stddef.h>
 #include <string.h>
+#include <strings.h>
 
 #include "fns.h"
 #include "mpc.h"
@@ -43,7 +44,7 @@ mpd_check_tag_name(mpc_val_t **val)
 
 	str = *(char **)val;
 	for (inset = 0, i = 0; i < LENGTH(mpd_tag_names); i++) {
-		if (!strcmp(str, mpd_tag_names[i]))
+		if (!strcasecmp(str, mpd_tag_names[i]))
 			inset = 1;
 	}
 
@@ -146,12 +147,13 @@ mpdf_fold_expressions(int n, mpc_val_t **xs)
 static mpc_parser_t *
 mpd_tag(void)
 {
-	mpc_parser_t *str, *strcheck, *op;
+	mpc_parser_t *str, *lstr, *strcheck, *op;
 
 	str = mpc_many1(mpcf_strfold,
 	                mpc_or(2, mpc_range('a', 'z'), mpc_range('A', 'Z')));
-	strcheck = mpc_check(str, free, mpd_check_tag_name, "invalid tag");
+	lstr = mpc_apply(str, mpdf_lowercase);
 
+	strcheck = mpc_check(lstr, free, mpd_check_tag_name, "invalid tag");
 	op = mpc_or(5, mpc_string("=="), mpc_string("!="),
 	            mpc_string("contains"), mpc_string("=~"), mpc_string("!~"));
 
