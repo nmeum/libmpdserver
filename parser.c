@@ -32,6 +32,12 @@ mpd_whitespace(void)
 }
 
 mpc_val_t *
+mpdf_lowercase(mpc_val_t *val)
+{
+	return lowercase((char *)val);
+}
+
+mpc_val_t *
 mpdf_unescape(mpc_val_t *val)
 {
 	unsigned short esc;
