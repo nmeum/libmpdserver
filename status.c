@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <string.h>
+#include <strings.h>
 
 #include "fns.h"
 #include "mpc.h"
@@ -19,7 +20,7 @@ mpd_check_subsys(mpc_val_t **val)
 
 	str = *(char **)val;
 	for (inset = 0, i = 0; i < LENGTH(mpd_subsystems); i++) {
-		if (!strcmp(str, mpd_subsystems[i]))
+		if (!strcasecmp(str, mpd_subsystems[i]))
 			inset = 1;
 	}
 
@@ -43,10 +44,11 @@ mpdf_fold(idle, mpd_opt_arg(MPD_ARG_STRING))
 static mpc_parser_t *
 mpd_idle(void)
 {
-	mpc_parser_t *subsys;
+	mpc_parser_t *str, *subsys;
 
-	subsys = mpc_check(mpd_string(), free, mpd_check_subsys,
-	                   "invalid subsystem");
+	str = mpc_apply(mpd_string(), mpdf_lowercase);
+	subsys = mpc_check(str, free, mpd_check_subsys, "invalid subsystem");
+
 	return mpc_and(2, mpdf_idle, mpc_string("idle"),
 	               mpc_maybe(mpd_argument(subsys)), free);
 }
