@@ -47,6 +47,8 @@ mpd_check_tag_name(mpc_val_t **val)
 			inset = 1;
 	}
 
+	/* See: https://github.com/orangeduck/mpc/issues/111 */
+	if (!inset) free(str);
 	return inset;
 }
 
@@ -227,7 +229,7 @@ mpd_expression(char *str)
 	           mpc_between(mpc_or(3, mpd_base_exprs(),
 	                              mpc_and(3, mpdf_fold_expressions, expr,
 	                                      mpd_op(mpc_string("AND")), expr,
-	                                      free, free),
+	                                      mpd_free_expression, free),
 	                              mpc_and(2, mpdf_fold_expressions,
 	                                      mpc_char('!'), expr, free)),
 	                       mpd_free_expression, "(", ")"));

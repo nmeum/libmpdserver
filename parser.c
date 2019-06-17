@@ -22,6 +22,8 @@ mpd_check_quote(mpc_val_t **val)
 	char *ptr;
 
 	ptr = (char *)*val;
+	/* See https://github.com/orangeduck/mpc/issues/111 */
+	if (*ptr == '"') free(ptr);
 	return *ptr != '"';
 }
 
@@ -186,7 +188,7 @@ mpd_command_primitive(void)
 	cmd = mpc_or(5, mpd_playback_cmds(), mpd_status_cmds(),
 	             mpd_control_cmds(), mpd_queue_cmds(), mpd_database_cmds());
 
-	return mpc_and(2, mpcf_fst, cmd, mpc_newline(), mpd_free_command);
+	return mpc_and(2, mpcf_fst_free, cmd, mpc_newline(), mpd_free_command);
 }
 
 mpd_command_t *

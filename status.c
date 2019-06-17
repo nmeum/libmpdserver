@@ -23,6 +23,10 @@ mpd_check_subsys(mpc_val_t **val)
 			inset = 1;
 	}
 
+	/* See https://github.com/orangeduck/mpc/issues/111 */
+	if (!inset)
+		free(str);
+
 	return inset;
 }
 

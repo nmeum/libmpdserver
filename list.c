@@ -53,8 +53,8 @@ mpd_list_cmds(void)
 	                   mpc_string("command_list_ok_begin"));
 	endstr = mpc_string("command_list_end");
 
-	lbeg = mpc_and(2, mpcf_fst, startstrs, mpc_newline(), free);
-	lend = mpc_and(2, mpcf_fst, endstr, mpc_newline(), free);
+	lbeg = mpc_and(2, mpcf_fst_free, startstrs, mpc_newline(), free);
+	lend = mpc_and(2, mpcf_fst_free, endstr, mpc_newline(), free);
 
 	cmds = mpc_many1(mpdf_fold_command, mpd_command_primitive());
 	return mpc_and(3, mpdf_fold_list, lbeg, cmds, lend, free,
