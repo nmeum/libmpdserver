@@ -7,6 +7,7 @@
 
 typedef enum {
 	MPD_VAL_INT,
+	MPD_VAL_UINT,
 	MPD_VAL_STR,
 	MPD_VAL_FLOAT,
 	MPD_VAL_RANGE,
@@ -56,6 +57,7 @@ struct _mpd_argument_t {
 	mpd_val_t type;
 	union {
 		int ival;
+		unsigned int uval;
 		char *sval;
 		float fval;
 		mpd_range_t rval;

@@ -116,6 +116,20 @@ mpdf_range(mpc_val_t *val)
 	return mpd_new_range((size_t)pos, (ssize_t)pos);
 }
 
+static mpc_val_t *
+mpdf_uint(mpc_val_t *val)
+{
+	unsigned int *uval;
+
+	uval = xmalloc(sizeof(*uval));
+	/* TODO: We can't signal an error error condition from an apply
+	 * function and strtoul(3) might potentially overflow. */
+	*uval = (unsigned int)strtoul((char *)val, NULL, 10);
+
+	free(val);
+	return uval;
+}
+
 mpc_parser_t *
 mpd_cmd_noarg(char *cmdstr)
 {
@@ -134,9 +148,16 @@ mpd_argument(mpc_parser_t *a)
 }
 
 mpc_parser_t *
+mpd_uint(void)
+{
+	return mpc_expect(mpc_apply(mpc_digits(), mpdf_uint),
+	                  "unsigned integer");
+}
+
+mpc_parser_t *
 mpd_binary(void)
 {
-	return mpc_expect(mpc_apply(mpc_oneof("01"), mpcf_int), "binary");
+	return mpc_expect(mpc_apply(mpc_oneof("01"), mpdf_uint), "binary");
 }
 
 mpc_parser_t *

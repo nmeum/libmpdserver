@@ -1,6 +1,6 @@
 name: seek
 argv:
-  - type: int
+  - type: uint
     value: 23
   - type: float
     value: 0.5

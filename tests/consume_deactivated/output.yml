@@ -1,4 +1,4 @@
 name: consume
 argv:
-  - type: int
+  - type: uint
     value: 0

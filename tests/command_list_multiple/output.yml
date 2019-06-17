@@ -4,11 +4,11 @@ argv:
     value:
       name: consume
       argv:
-        - type: int
+        - type: uint
           value: 1
   - type: cmd
     value:
       name: crossfade
       argv:
-        - type: int
+        - type: uint
           value: 1

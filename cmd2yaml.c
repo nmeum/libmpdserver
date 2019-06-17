@@ -36,6 +36,8 @@ format_val(mpd_val_t val)
 	switch (val) {
 	case MPD_VAL_INT:
 		return "int";
+	case MPD_VAL_UINT:
+		return "uint";
 	case MPD_VAL_STR:
 		return "str";
 	case MPD_VAL_FLOAT:
@@ -78,6 +80,9 @@ format_arg(int ident, mpd_argument_t *arg)
 	switch (arg->type) {
 	case MPD_VAL_INT:
 		printf("%d\n", arg->v.ival);
+		break;
+	case MPD_VAL_UINT:
+		printf("%u\n", arg->v.uval);
 		break;
 	case MPD_VAL_STR:
 		printf("%s\n", arg->v.sval);

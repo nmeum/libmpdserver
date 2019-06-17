@@ -50,6 +50,7 @@
 	}
 
 #define MPD_ARG_INT mpd_arg(MPD_VAL_INT, ival, *(int *), 1)
+#define MPD_ARG_UINT mpd_arg(MPD_VAL_UINT, uval, *(unsigned int *), 1)
 #define MPD_ARG_FLOAT mpd_arg(MPD_VAL_FLOAT, fval, *(float *), 1)
 #define MPD_ARG_RANGE mpd_arg(MPD_VAL_RANGE, rval, *(mpd_range_t *), 1)
 #define MPD_ARG_STRING mpd_arg(MPD_VAL_STR, sval, (char *), 0)
@@ -63,6 +64,7 @@ mpc_parser_t *mpd_queue_cmds(void);
 mpc_parser_t *mpd_database_cmds(void);
 
 mpc_parser_t *mpd_argument(mpc_parser_t *);
+mpc_parser_t *mpd_uint(void);
 mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_time(void);
 mpc_parser_t *mpd_range(void);
