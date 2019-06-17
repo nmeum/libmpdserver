@@ -23,10 +23,6 @@ mpd_check_subsys(mpc_val_t **val)
 			inset = 1;
 	}
 
-	/* See https://github.com/orangeduck/mpc/issues/111 */
-	if (!inset)
-		free(str);
-
 	return inset;
 }
 
@@ -49,7 +45,8 @@ mpd_idle(void)
 {
 	mpc_parser_t *subsys;
 
-	subsys = mpc_check(mpd_string(), mpd_check_subsys, "invalid subsystem");
+	subsys = mpc_check(mpd_string(), free, mpd_check_subsys,
+	                   "invalid subsystem");
 	return mpc_and(2, mpdf_idle, mpc_string("idle"),
 	               mpc_maybe(mpd_argument(subsys)), free);
 }

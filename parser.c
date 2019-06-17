@@ -22,8 +22,6 @@ mpd_check_quote(mpc_val_t **val)
 	char *ptr;
 
 	ptr = (char *)*val;
-	/* See https://github.com/orangeduck/mpc/issues/111 */
-	if (*ptr == '"') free(ptr);
 	return *ptr != '"';
 }
 
@@ -162,7 +160,8 @@ mpd_string(void)
 	mpc_parser_t *str, *strcheck;
 
 	str = mpc_many(mpcf_strfold, mpc_noneof(" \t\n"));
-	strcheck = mpc_check(str, mpd_check_quote, "missing closing '\"'");
+	strcheck =
+	    mpc_check(str, free, mpd_check_quote, "missing closing '\"'");
 
 	return mpc_or(2, mpc_apply(mpc_string_lit(), mpdf_unescape), strcheck);
 }

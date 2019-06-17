@@ -8,7 +8,7 @@ mpd_count(void)
 {
 	mpc_parser_t *tag, *group;
 
-	tag = mpc_check(mpd_string(), mpd_check_tag_name, "invalid tag");
+	tag = mpc_check(mpd_string(), free, mpd_check_tag_name, "invalid tag");
 	group = mpc_and(2, mpcf_snd_free, mpd_argument(mpc_string("group")),
 	                mpd_argument(tag), free);
 

@@ -47,8 +47,6 @@ mpd_check_tag_name(mpc_val_t **val)
 			inset = 1;
 	}
 
-	/* See: https://github.com/orangeduck/mpc/issues/111 */
-	if (!inset) free(str);
 	return inset;
 }
 
@@ -152,7 +150,7 @@ mpd_tag(void)
 
 	str = mpc_many1(mpcf_strfold,
 	                mpc_or(2, mpc_range('a', 'z'), mpc_range('A', 'Z')));
-	strcheck = mpc_check(str, mpd_check_tag_name, "invalid tag");
+	strcheck = mpc_check(str, free, mpd_check_tag_name, "invalid tag");
 
 	op = mpc_or(5, mpc_string("=="), mpc_string("!="),
 	            mpc_string("contains"), mpc_string("=~"), mpc_string("!~"));
@@ -241,6 +239,6 @@ mpd_expression(char *str)
 		ret = NULL;
 	}
 
-	mpc_delete(expr);
+	mpc_cleanup(1, expr);
 	return ret;
 }
