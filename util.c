@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <err.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -38,6 +39,17 @@ xrealloc(void *ptr, size_t size)
 		err(EXIT_FAILURE, "realloc failed");
 
 	return r;
+}
+
+char *
+lowercase(char *str)
+{
+	size_t i;
+
+	for (i = 0; i < strlen(str); i++)
+		str[i] = (char)tolower(str[i]);
+
+	return str;
 }
 
 mpd_range_t *
