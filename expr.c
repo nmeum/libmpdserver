@@ -193,8 +193,8 @@ mpd_audio_format(void)
 static mpc_parser_t *
 mpd_base_exprs(void)
 {
-	return mpc_or(5, mpd_tag(), mpd_file(), mpd_base(),
-	              mpd_modified_since(), mpd_audio_format());
+	return mpc_or(5, mpd_file(), mpd_base(), mpd_modified_since(),
+	              mpd_audio_format(), mpd_tag());
 }
 
 void
