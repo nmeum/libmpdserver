@@ -45,7 +45,7 @@
 	} while (0);
 
 #define mpd_opt_arg(ARG)                                                       \
-	if (n > 1) {                                                           \
+	if (n > i + 1) {                                                       \
 		ARG                                                            \
 	}
 
