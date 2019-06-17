@@ -83,22 +83,21 @@ static mpc_val_t *
 mpdf_fold_range(int n, mpc_val_t **xs)
 {
 	int i;
-	int start, end;
+	size_t start;
+	ssize_t end;
 
 	assert(n == 3);
 	assert(*(char *)xs[1] == ':');
 
-	start = atoi((char *)xs[0]);
-	end = (xs[2]) ? atoi((char *)xs[2]) : -1;
+	/* TODO: We can't signal an error error condition from an apply
+	 * function and strtoull(3) might potentially overflow. */
+	start = (size_t)strtoull((char *)xs[0], NULL, 10);
+	end = (xs[2]) ? (ssize_t)strtoull((char *)xs[2], NULL, 10) : -1;
 
 	for (i = 0; i < n; i++)
 		free(xs[i]);
 
-	/* TODO: start shouldn't be negative, but might be due to an
-	 * integer overflow. Unfortunately, we can't signal an error
-	 * from a fold function and thus can't handle this properly. */
-	/* assert(start >= 0); */
-	return mpd_new_range((size_t)start, (ssize_t)end);
+	return mpd_new_range(start, end);
 }
 
 static mpc_val_t *
