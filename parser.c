@@ -101,7 +101,7 @@ mpdf_fold_range(int n, mpc_val_t **xs)
 	return mpd_new_range((size_t)start, (ssize_t)end);
 }
 
-mpc_val_t *
+static mpc_val_t *
 mpdf_range(mpc_val_t *val)
 {
 	int pos;
@@ -177,8 +177,13 @@ mpd_time(void)
 mpc_parser_t *
 mpd_range(void)
 {
-	return mpc_and(3, mpdf_fold_range, mpc_digits(), mpc_char(':'),
-	               mpc_maybe(mpc_digits()), free, free);
+	mpc_parser_t *single, *range;
+
+	single = mpc_apply(mpc_int(), mpdf_range);
+	range = mpc_and(3, mpdf_fold_range, mpc_digits(), mpc_char(':'),
+	                mpc_maybe(mpc_digits()), free, free);
+
+	return mpc_or(2, range, single);
 }
 
 mpc_parser_t *

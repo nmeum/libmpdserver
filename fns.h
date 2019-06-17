@@ -76,7 +76,6 @@ mpc_parser_t *mpd_cmd_noarg(char *);
 mpc_parser_t *mpd_whitespace(void);
 
 mpc_val_t *mpdf_lowercase(mpc_val_t *);
-mpc_val_t *mpdf_range(mpc_val_t *);
 mpc_val_t *mpdf_unescape(mpc_val_t *);
 
 void *xmalloc(size_t);
