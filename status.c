@@ -44,11 +44,10 @@ mpdf_fold(idle, mpd_opt_arg(MPD_ARG_STRING))
 static mpc_parser_t *
 mpd_idle(void)
 {
-	mpc_parser_t *str, *subsys;
+	mpc_parser_t *subsys;
 
-	str = mpc_apply(mpd_string(), mpdf_lowercase);
-	subsys = mpc_check(str, free, mpd_check_subsys, "invalid subsystem");
-
+	subsys = mpc_check(mpd_string_case(), free, mpd_check_subsys,
+	                   "invalid subsystem");
 	return mpc_and(2, mpdf_idle, mpc_string("idle"),
 	               mpc_maybe(mpd_argument(subsys)), free);
 }

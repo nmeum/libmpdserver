@@ -173,6 +173,12 @@ mpd_string(void)
 }
 
 mpc_parser_t *
+mpd_string_case(void)
+{
+	return mpc_apply(mpd_string(), mpdf_lowercase);
+}
+
+mpc_parser_t *
 mpd_uri(void)
 {
 	/* Unfortunately, a URI argument is either a URI or a file name.
