@@ -103,13 +103,9 @@ mpdf_fold_range(int n, mpc_val_t **xs)
 static mpc_val_t *
 mpdf_range(mpc_val_t *val)
 {
-	int pos;
+	unsigned int pos;
 
-	pos = *(int *)val;
-	/* TODO: pos shouldn't be negative, but might be due to an
-	 * integer overflow. Unfortunately, we can't signal an error
-	 * from a apply function and thus can't handle this properly. */
-	/* assert(pos >= 0); */
+	pos = *(unsigned int *)val;
 	free(val);
 
 	return mpd_new_range((size_t)pos, (ssize_t)pos);
@@ -178,7 +174,7 @@ mpd_range(void)
 {
 	mpc_parser_t *single, *range;
 
-	single = mpc_apply(mpc_int(), mpdf_range);
+	single = mpc_apply(mpd_uint(), mpdf_range);
 	range = mpc_and(3, mpdf_fold_range, mpc_digits(), mpc_char(':'),
 	                mpc_maybe(mpc_digits()), free, free);
 
