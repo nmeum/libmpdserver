@@ -9,7 +9,7 @@ combinators. Buggy, incomplete and unstable at the moment.
 
 ## Design Goals
 
-This library attempts to follow some of [langsec][langsec website]
+This library attempts to follow some of the [langsec][langsec website]
 principles outlined in [\[1\]][curing the vulnerable parsers]. This
 include a strict input grammar enforced using a parser combinator and
 performing full input recognition in the library before doing further
