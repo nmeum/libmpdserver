@@ -28,6 +28,12 @@ mpd_check_subsys(mpc_val_t **val)
 }
 
 static mpc_parser_t *
+mpd_clearerror(void)
+{
+	return mpd_cmd_noarg("clearerror");
+}
+
+static mpc_parser_t *
 mpd_currentsong(void)
 {
 	return mpd_cmd_noarg("currentsong");
@@ -37,6 +43,12 @@ static mpc_parser_t *
 mpd_status(void)
 {
 	return mpd_cmd_noarg("status");
+}
+
+static mpc_parser_t *
+mpd_stats(void)
+{
+	return mpd_cmd_noarg("stats");
 }
 
 mpdf_fold(idle, mpd_opt_arg(MPD_ARG_STRING))
@@ -55,5 +67,6 @@ mpd_idle(void)
 mpc_parser_t *
 mpd_status_cmds(void)
 {
-	return mpc_or(3, mpd_currentsong(), mpd_status(), mpd_idle());
+	return mpc_or(5, mpd_clearerror(), mpd_currentsong(), mpd_idle(),
+	              mpd_status(), mpd_stats());
 }
