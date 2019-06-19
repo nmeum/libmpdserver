@@ -10,5 +10,5 @@ argv:
     value:
       name: consume
       argv:
-        - type: uint
-          value: 0
+        - type: bool
+          value: false

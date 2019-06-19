@@ -4,8 +4,8 @@ argv:
     value:
       name: consume
       argv:
-        - type: uint
-          value: 1
+        - type: bool
+          value: true
   - type: cmd
     value:
       name: crossfade

@@ -1,6 +1,7 @@
 #ifndef MPDSERVER_H
 #define MPDSERVER_H
 
+#include <stdbool.h>
 #include <stdio.h>
 
 #include <sys/types.h>
@@ -10,6 +11,7 @@ typedef enum {
 	MPD_VAL_UINT,
 	MPD_VAL_STR,
 	MPD_VAL_FLOAT,
+	MPD_VAL_BOOL,
 	MPD_VAL_RANGE,
 	MPD_VAL_EXPR,
 	MPD_VAL_CMD,
@@ -60,6 +62,7 @@ struct _mpd_argument_t {
 		unsigned int uval;
 		char *sval;
 		float fval;
+		bool bval;
 		mpd_range_t rval;
 		mpd_expression_t *eval;
 		mpd_command_t *cmdval;

@@ -10,7 +10,7 @@ mpd_check_volume(mpc_val_t **val)
 	return *ptr <= 100;
 }
 
-mpdf_fold(consume, MPD_ARG_UINT)
+mpdf_fold(consume, MPD_ARG_BOOL)
 
 static mpc_parser_t *
 mpd_consume(void)
