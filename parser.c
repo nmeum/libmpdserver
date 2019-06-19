@@ -156,7 +156,7 @@ mpd_binary(void)
 }
 
 mpc_parser_t *
-mpd_time(void)
+mpd_float(void)
 {
 	mpc_parser_t *pre, *sep, *fra, *par;
 
@@ -166,7 +166,7 @@ mpd_time(void)
 	fra = mpc_and(3, mpcf_strfold, pre, sep, mpc_digits(), free, free);
 	par = mpc_or(2, fra, mpc_digits(), free);
 
-	return mpc_expect(mpc_apply(par, mpcf_float), "time");
+	return mpc_expect(mpc_apply(par, mpcf_float), "float");
 }
 
 mpc_parser_t *

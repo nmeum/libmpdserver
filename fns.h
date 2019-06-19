@@ -67,7 +67,7 @@ mpc_parser_t *mpd_database_cmds(void);
 mpc_parser_t *mpd_argument(mpc_parser_t *);
 mpc_parser_t *mpd_uint(void);
 mpc_parser_t *mpd_binary(void);
-mpc_parser_t *mpd_time(void);
+mpc_parser_t *mpd_float(void);
 mpc_parser_t *mpd_range(void);
 mpc_parser_t *mpd_string(void);
 mpc_parser_t *mpd_string_case(void);

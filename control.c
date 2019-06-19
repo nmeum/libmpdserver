@@ -7,8 +7,8 @@ static mpc_parser_t *
 mpd_seek(void)
 {
 	return mpc_and(3, mpdf_seek, mpc_string("seek"),
-	               mpd_argument(mpd_uint()), mpd_argument(mpd_time()), free,
-	               free);
+	               mpd_argument(mpd_uint()), mpd_argument(mpd_float()),
+	               free, free);
 }
 
 mpc_parser_t *
