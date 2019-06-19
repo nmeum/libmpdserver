@@ -1,0 +1,6 @@
+name: moveid
+argv:
+  - type: uint
+    value: 2342
+  - type: int
+    value: -1337
