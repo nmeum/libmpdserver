@@ -1,0 +1,4 @@
+name: setvol
+argv:
+  - type: uint
+    value: 100
