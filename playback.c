@@ -28,6 +28,20 @@ mpd_crossfade(void)
 	               mpd_argument(mpd_uint()), free);
 }
 
+mpdf_fold(mixrampdb, MPD_ARG_FLOAT)
+
+static mpc_parser_t *
+mpd_mixrampdb(void)
+{
+	mpc_parser_t *neg, *val;
+
+	neg = mpc_and(2, mpcf_strfold, mpc_char('-'), mpd_float_digits(), free);
+	val = mpc_or(2, mpd_float(), mpc_apply(neg, mpcf_float));
+
+	return mpc_and(2, mpdf_mixrampdb, mpc_string("mixrampdb"),
+	               mpd_argument(val), free);
+}
+
 mpdf_fold(setvol, MPD_ARG_UINT)
 
 static mpc_parser_t *
@@ -43,5 +57,6 @@ mpd_setvol(void)
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(3, mpd_consume(), mpd_crossfade(), mpd_setvol());
+	return mpc_or(4, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	              mpd_setvol());
 }
