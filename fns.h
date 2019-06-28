@@ -70,6 +70,7 @@ mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_float_digits(void);
 mpc_parser_t *mpd_float(void);
 mpc_parser_t *mpd_range(void);
+mpc_parser_t *mpd_range_with_single(void);
 mpc_parser_t *mpd_string(void);
 mpc_parser_t *mpd_string_case(void);
 mpc_parser_t *mpd_uri(void);

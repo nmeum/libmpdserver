@@ -176,13 +176,17 @@ mpd_float(void)
 mpc_parser_t *
 mpd_range(void)
 {
-	mpc_parser_t *single, *range;
+	return mpc_and(3, mpdf_fold_range, mpc_digits(), mpc_char(':'),
+	               mpc_maybe(mpc_digits()), free, free);
+}
+
+mpc_parser_t *
+mpd_range_with_single(void)
+{
+	mpc_parser_t *single;
 
 	single = mpc_apply(mpd_uint(), mpdf_range);
-	range = mpc_and(3, mpdf_fold_range, mpc_digits(), mpc_char(':'),
-	                mpc_maybe(mpc_digits()), free, free);
-
-	return mpc_or(2, range, single);
+	return mpc_or(2, mpd_range(), single);
 }
 
 mpc_parser_t *

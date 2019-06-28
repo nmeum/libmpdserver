@@ -16,7 +16,7 @@ static mpc_parser_t *
 mpd_delete(void)
 {
 	return mpc_and(2, mpdf_delete, mpc_string("delete"),
-	               mpd_argument(mpd_range()), free);
+	               mpd_argument(mpd_range_with_single()), free);
 }
 
 mpdf_fold(moveid, MPD_ARG_UINT MPD_ARG_INT)
