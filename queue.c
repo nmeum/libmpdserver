@@ -34,8 +34,18 @@ mpd_moveid(void)
 	               mpd_argument(mpd_uint()), mpd_argument(to), free, free);
 }
 
+mpdf_fold(rangeid, MPD_ARG_UINT MPD_ARG_RANGE)
+
+static mpc_parser_t *
+mpd_rangeid(void)
+{
+	return mpc_and(3, mpdf_rangeid, mpc_string("rangeid"),
+	               mpd_argument(mpd_uint()), mpd_argument(mpd_range()),
+	               free, free);
+}
+
 mpc_parser_t *
 mpd_queue_cmds(void)
 {
-	return mpc_or(3, mpd_add(), mpd_delete(), mpd_moveid());
+	return mpc_or(4, mpd_add(), mpd_delete(), mpd_moveid(), mpd_rangeid());
 }

@@ -1,0 +1,6 @@
+name: rangeid
+argv:
+  - type: uint
+    value: 5
+  - type: range
+    value: 23:42
