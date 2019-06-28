@@ -156,17 +156,21 @@ mpd_binary(void)
 }
 
 mpc_parser_t *
-mpd_float(void)
+mpd_float_digits(void)
 {
-	mpc_parser_t *pre, *sep, *fra, *par;
+	mpc_parser_t *pre, *sep, *fra;
 
 	pre = mpc_maybe_lift(mpc_digits(), mpcf_ctor_str);
 	sep = mpc_char('.');
 
 	fra = mpc_and(3, mpcf_strfold, pre, sep, mpc_digits(), free, free);
-	par = mpc_or(2, fra, mpc_digits(), free);
+	return mpc_or(2, fra, mpc_digits(), free);
+}
 
-	return mpc_expect(mpc_apply(par, mpcf_float), "float");
+mpc_parser_t *
+mpd_float(void)
+{
+	return mpc_expect(mpc_apply(mpd_float_digits(), mpcf_float), "float");
 }
 
 mpc_parser_t *
