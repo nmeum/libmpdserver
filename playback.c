@@ -1,6 +1,17 @@
 #include "fns.h"
 #include "mpc.h"
 
+static mpc_val_t *
+mpdf_nan(mpc_val_t *val)
+{
+	int *ptr;
+
+	free(val);
+	ptr = xmalloc(sizeof(*ptr));
+	*ptr = -1;
+	return ptr;
+}
+
 static int
 mpd_check_volume(mpc_val_t **val)
 {
@@ -42,6 +53,19 @@ mpd_mixrampdb(void)
 	               mpd_argument(val), free);
 }
 
+mpdf_fold(mixrampdelay, MPD_ARG_INT)
+
+static mpc_parser_t *
+mpd_mixrampdelay(void)
+{
+	mpc_parser_t *val;
+
+	/* TODO: document that nan is canonicalized as -1 */
+	val = mpc_or(2, mpc_int(), mpc_apply(mpc_string("nan"), mpdf_nan));
+	return mpc_and(2, mpdf_mixrampdelay, mpc_string("mixrampdelay"),
+	               mpd_argument(val), free);
+}
+
 mpdf_fold(setvol, MPD_ARG_UINT)
 
 static mpc_parser_t *
@@ -57,6 +81,6 @@ mpd_setvol(void)
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(4, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
-	              mpd_setvol());
+	return mpc_or(5, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	              mpd_mixrampdelay(), mpd_setvol());
 }
