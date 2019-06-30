@@ -66,6 +66,24 @@ mpd_mixrampdelay(void)
 	               mpd_argument(val), free);
 }
 
+mpdf_fold(random, MPD_ARG_BOOL)
+
+static mpc_parser_t *
+mpd_random(void)
+{
+	return mpc_and(2, mpdf_random, mpc_string("random"),
+	               mpd_argument(mpd_binary()), free);
+}
+
+mpdf_fold(repeat, MPD_ARG_BOOL)
+
+static mpc_parser_t *
+mpd_repeat(void)
+{
+	return mpc_and(2, mpdf_repeat, mpc_string("repeat"),
+	               mpd_argument(mpd_binary()), free);
+}
+
 mpdf_fold(setvol, MPD_ARG_UINT)
 
 static mpc_parser_t *
@@ -81,6 +99,7 @@ mpd_setvol(void)
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(5, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
-	              mpd_mixrampdelay(), mpd_setvol());
+	return mpc_or(7, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	              mpd_mixrampdelay(), mpd_setvol(), mpd_random(),
+	              mpd_repeat());
 }
