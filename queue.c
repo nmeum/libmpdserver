@@ -26,8 +26,9 @@ mpd_moveid(void)
 {
 	mpc_parser_t *toval, *to;
 
-	toval = mpc_or(2, mpc_and(2, mpcf_strfold, mpc_char('-'), mpc_digits()),
-	               mpc_digits());
+	toval = mpc_or(
+	    2, mpc_and(2, mpcf_strfold, mpc_char('-'), mpc_digits(), free),
+	    mpc_digits());
 	to = mpc_expect(mpc_apply(toval, mpcf_int), "signed integer");
 
 	return mpc_and(3, mpdf_moveid, mpc_string("moveid"),
