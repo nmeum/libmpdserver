@@ -117,10 +117,17 @@ mpd_replay_gain_mode(void)
 	               mpd_argument(mode), free);
 }
 
+static mpc_parser_t *
+mpd_replay_gain_status(void)
+{
+	return mpd_cmd_noarg("replay_gain_status");
+}
+
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(8, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	return mpc_or(9, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
 	              mpd_mixrampdelay(), mpd_setvol(), mpd_random(),
-	              mpd_repeat(), mpd_replay_gain_mode());
+	              mpd_repeat(), mpd_replay_gain_mode(),
+	              mpd_replay_gain_status());
 }
