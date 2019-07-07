@@ -1,6 +1,5 @@
 #include <stddef.h>
 #include <string.h>
-#include <strings.h>
 
 #include "fns.h"
 #include "mpc.h"
@@ -10,22 +9,6 @@ static char *mpd_subsystems[] = {
     "player",    "mixer",   "output",          "options",
     "partition", "sticker", "subscription",    "message",
 };
-
-static int
-mpd_check_subsys(mpc_val_t **val)
-{
-	size_t i;
-	char *str;
-	int inset;
-
-	str = *(char **)val;
-	for (inset = 0, i = 0; i < LENGTH(mpd_subsystems); i++) {
-		if (!strcasecmp(str, mpd_subsystems[i]))
-			inset = 1;
-	}
-
-	return inset;
-}
 
 static mpc_parser_t *
 mpd_clearerror(void)
@@ -57,9 +40,10 @@ static mpc_parser_t *
 mpd_idle(void)
 {
 	mpc_parser_t *subsys;
+	static mpd_string_array_t ary = MPD_STRING_ARY(mpd_subsystems);
 
-	subsys = mpc_check(mpd_string_case(), free, mpd_check_subsys,
-	                   "invalid subsystem");
+	subsys = mpc_check_with(mpd_string_case(), free, mpd_check_array, &ary,
+	                        "invalid subsystem");
 	return mpc_and(2, mpdf_idle, mpc_string("idle"),
 	               mpc_maybe(mpd_argument(subsys)), free);
 }

@@ -36,19 +36,9 @@ static char *mpd_tag_names[] = {
 int
 mpd_check_tag_name(mpc_val_t **val)
 {
-	size_t i;
-	char *str;
-	int inset;
+	static mpd_string_array_t a = MPD_STRING_ARY(mpd_tag_names);
 
-	/* TODO: duplication of mpd_check_subsys */
-
-	str = *(char **)val;
-	for (inset = 0, i = 0; i < LENGTH(mpd_tag_names); i++) {
-		if (!strcasecmp(str, mpd_tag_names[i]))
-			inset = 1;
-	}
-
-	return inset;
+	return mpd_check_array(val, &a);
 }
 
 static mpc_parser_t *

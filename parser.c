@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 #include <sys/types.h>
 
@@ -23,6 +24,26 @@ mpd_check_quote(mpc_val_t **val)
 
 	ptr = (char *)*val;
 	return *ptr != '"';
+}
+
+int
+mpd_check_array(mpc_val_t **val, void *ptr)
+{
+	size_t i;
+	int inset;
+	char *str;
+	mpd_string_array_t *ary;
+
+	str = *(char **)val;
+	ary = (mpd_string_array_t *)ptr;
+
+	inset = 0;
+	for (i = 0; i < ary->len; i++) {
+		if (!strcasecmp(str, ary->ptr[i]))
+			inset = 1;
+	}
+
+	return inset;
 }
 
 mpc_parser_t *

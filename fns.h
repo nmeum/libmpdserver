@@ -57,6 +57,15 @@
 #define MPD_ARG_STRING mpd_arg(MPD_VAL_STR, sval, (char *), 0)
 #define MPD_ARG_EXPR mpd_arg(MPD_VAL_EXPR_STR, sval, (char *), 0)
 
+typedef struct {
+	char **ptr;
+	size_t len;
+} mpd_string_array_t;
+
+/* clang-format off */
+#define MPD_STRING_ARY(ARY) {ARY, LENGTH(ARY)}
+/* clang-format on */
+
 mpc_parser_t *mpd_playback_cmds(void);
 mpc_parser_t *mpd_status_cmds(void);
 mpc_parser_t *mpd_list_cmds(void);
@@ -90,5 +99,6 @@ mpd_command_t *mpd_new_command(char *, size_t);
 void mpd_free_expression(void *);
 mpd_expression_t *mpd_expression(char *);
 int mpd_check_tag_name(mpc_val_t **);
+int mpd_check_array(mpc_val_t **, void *);
 
 #endif
