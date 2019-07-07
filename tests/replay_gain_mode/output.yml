@@ -1,0 +1,4 @@
+name: replay_gain_mode
+argv:
+  - type: str
+    value: off

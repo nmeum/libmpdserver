@@ -1,6 +1,13 @@
 #include "fns.h"
 #include "mpc.h"
 
+static char *mpd_gain_modes[] = {
+    "off",
+    "track",
+    "album",
+    "auto",
+};
+
 static mpc_val_t *
 mpdf_nan(mpc_val_t *val)
 {
@@ -96,10 +103,24 @@ mpd_setvol(void)
 	               free);
 }
 
+mpdf_fold(replay_gain_mode, MPD_ARG_STRING)
+
+static mpc_parser_t *
+mpd_replay_gain_mode(void)
+{
+	mpc_parser_t *mode;
+	static mpd_string_array_t ary = MPD_STRING_ARY(mpd_gain_modes);
+
+	mode = mpc_check_with(mpd_string_case(), free, mpd_check_array, &ary,
+	                      "invalid gain mode");
+	return mpc_and(2, mpdf_replay_gain_mode, mpc_string("replay_gain_mode"),
+	               mpd_argument(mode), free);
+}
+
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(7, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	return mpc_or(8, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
 	              mpd_mixrampdelay(), mpd_setvol(), mpd_random(),
-	              mpd_repeat());
+	              mpd_repeat(), mpd_replay_gain_mode());
 }
