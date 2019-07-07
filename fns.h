@@ -86,6 +86,7 @@ mpc_parser_t *mpd_uri(void);
 mpc_parser_t *mpd_command_primitive(void);
 mpc_parser_t *mpd_cmd_noarg(char *);
 mpc_parser_t *mpd_whitespace(void);
+mpc_parser_t *mpd_tag_name(void);
 
 mpc_val_t *mpdf_lowercase(mpc_val_t *);
 mpc_val_t *mpdf_unescape(mpc_val_t *);
@@ -98,7 +99,6 @@ mpd_range_t *mpd_new_range(size_t, ssize_t);
 mpd_command_t *mpd_new_command(char *, size_t);
 void mpd_free_expression(void *);
 mpd_expression_t *mpd_expression(char *);
-int mpd_check_tag_name(mpc_val_t **);
 int mpd_check_array(mpc_val_t **, void *);
 
 #endif

@@ -33,12 +33,17 @@ static char *mpd_tag_names[] = {
     "musicbrainz_workid",
 };
 
-int
-mpd_check_tag_name(mpc_val_t **val)
+mpc_parser_t *
+mpd_tag_name(void)
 {
+	mpc_parser_t *str, *lstr;
 	static mpd_string_array_t a = MPD_STRING_ARY(mpd_tag_names);
 
-	return mpd_check_array(val, &a);
+	str = mpc_many1(mpcf_strfold,
+	                mpc_or(2, mpc_range('a', 'z'), mpc_range('A', 'Z')));
+	lstr = mpc_apply(str, mpdf_lowercase);
+
+	return mpc_check_with(lstr, free, mpd_check_array, &a, "invalid tag");
 }
 
 static mpc_parser_t *
@@ -137,17 +142,11 @@ mpdf_fold_expressions(int n, mpc_val_t **xs)
 static mpc_parser_t *
 mpd_tag(void)
 {
-	mpc_parser_t *str, *lstr, *strcheck, *op;
+	mpc_parser_t *op;
 
-	str = mpc_many1(mpcf_strfold,
-	                mpc_or(2, mpc_range('a', 'z'), mpc_range('A', 'Z')));
-	lstr = mpc_apply(str, mpdf_lowercase);
-
-	strcheck = mpc_check(lstr, free, mpd_check_tag_name, "invalid tag");
 	op = mpc_or(5, mpc_string("=="), mpc_string("!="),
 	            mpc_string("contains"), mpc_string("=~"), mpc_string("!~"));
-
-	return mpc_and(3, mpdf_fold_expression, strcheck, mpd_op(op),
+	return mpc_and(3, mpdf_fold_expression, mpd_tag_name(), mpd_op(op),
 	               mpd_expr_string(), free, free);
 }
 

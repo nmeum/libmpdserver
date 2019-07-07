@@ -6,12 +6,10 @@ mpdf_fold(count, MPD_ARG_EXPR mpd_opt_arg(MPD_ARG_STRING))
 static mpc_parser_t *
 mpd_count(void)
 {
-	mpc_parser_t *tag, *group;
+	mpc_parser_t *group;
 
-	tag = mpc_check(mpd_string_case(), free, mpd_check_tag_name,
-	                "invalid tag");
 	group = mpc_and(2, mpcf_snd_free, mpd_argument(mpc_string("group")),
-	                mpd_argument(tag), free);
+	                mpd_argument(mpd_tag_name()), free);
 
 	return mpc_and(3, mpdf_count, mpc_string("count"),
 	               mpd_argument(mpd_string()), mpc_maybe(group), free,
