@@ -123,11 +123,21 @@ mpd_replay_gain_status(void)
 	return mpd_cmd_noarg("replay_gain_status");
 }
 
+mpdf_fold(volume, MPD_ARG_INT)
+
+static mpc_parser_t *
+mpd_volume(void)
+{
+	/* XXX: This is deprecated */
+	return mpc_and(2, mpdf_volume, mpc_string("volume"),
+	               mpd_argument(mpd_int()), free);
+}
+
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(9, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	return mpc_or(10, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
 	              mpd_mixrampdelay(), mpd_setvol(), mpd_random(),
 	              mpd_repeat(), mpd_replay_gain_mode(),
-	              mpd_replay_gain_status());
+	              mpd_replay_gain_status(), mpd_volume());
 }
