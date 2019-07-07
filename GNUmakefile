@@ -25,7 +25,7 @@ radamsa: cmd2yaml
 format:
 	clang-format -style=file -i cmd2yaml.c $(SOURCES) $(HEADERS)
 	sed -i $(SOURCES) \
-		-e 's/[ \t]*static/static/' \
+		-e 's/[ \t]*static mpc_parser_t/static mpc_parser_t/' \
 		-e 's/static mpc_parser_t \*\(..*\)/static mpc_parser_t \*\n\1/'
 
 mpc.o: mpc.c mpc.h
