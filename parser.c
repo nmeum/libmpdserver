@@ -164,6 +164,17 @@ mpd_argument(mpc_parser_t *a)
 }
 
 mpc_parser_t *
+mpd_int(void)
+{
+	mpc_parser_t *neg, *val;
+
+	neg = mpc_and(2, mpcf_strfold, mpc_char('-'), mpc_digits(), free);
+	val = mpc_or(2, neg, mpc_digits());
+
+	return mpc_expect(mpc_apply(val, mpcf_int), "signed integer");
+}
+
+mpc_parser_t *
 mpd_uint(void)
 {
 	return mpc_expect(mpc_apply(mpc_digits(), mpdf_uint),

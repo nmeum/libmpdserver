@@ -74,6 +74,7 @@ mpc_parser_t *mpd_queue_cmds(void);
 mpc_parser_t *mpd_database_cmds(void);
 
 mpc_parser_t *mpd_argument(mpc_parser_t *);
+mpc_parser_t *mpd_int(void);
 mpc_parser_t *mpd_uint(void);
 mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_float_digits(void);

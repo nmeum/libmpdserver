@@ -24,15 +24,9 @@ mpdf_fold(moveid, MPD_ARG_UINT MPD_ARG_INT)
 static mpc_parser_t *
 mpd_moveid(void)
 {
-	mpc_parser_t *toval, *to;
-
-	toval = mpc_or(
-	    2, mpc_and(2, mpcf_strfold, mpc_char('-'), mpc_digits(), free),
-	    mpc_digits());
-	to = mpc_expect(mpc_apply(toval, mpcf_int), "signed integer");
-
 	return mpc_and(3, mpdf_moveid, mpc_string("moveid"),
-	               mpd_argument(mpd_uint()), mpd_argument(to), free, free);
+	               mpd_argument(mpd_uint()), mpd_argument(mpd_int()), free,
+	               free);
 }
 
 mpdf_fold(rangeid, MPD_ARG_UINT MPD_ARG_RANGE)
