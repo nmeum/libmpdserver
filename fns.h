@@ -17,7 +17,7 @@
 		mpd_command_t *cmd;                                            \
                                                                                \
 		/* Remove optional mpc_maybe() arguments */                    \
-		for (j = 0; j < n; j++)                                        \
+		for (j = n - 1; j >= 0; j--)                                   \
 			if (!xs[j])                                            \
 				--n;                                           \
                                                                                \
