@@ -1,6 +1,12 @@
 #include "fns.h"
 #include "mpc.h"
 
+static mpc_parser_t *
+mpd_next(void)
+{
+	return mpd_cmd_noarg("next");
+}
+
 mpdf_fold(seek, MPD_ARG_UINT MPD_ARG_FLOAT)
 
 static mpc_parser_t *
@@ -14,5 +20,5 @@ mpd_seek(void)
 mpc_parser_t *
 mpd_control_cmds(void)
 {
-	return mpd_seek();
+	return mpc_or(2, mpd_next(), mpd_seek());
 }
