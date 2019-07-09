@@ -1,0 +1,4 @@
+name: single
+argv:
+  - type: str
+    value: oneshot

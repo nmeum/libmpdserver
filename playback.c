@@ -103,6 +103,20 @@ mpd_setvol(void)
 	               free);
 }
 
+mpdf_fold(single, MPD_ARG_STRING)
+
+static mpc_parser_t *
+mpd_single(void)
+{
+	mpc_parser_t *val;
+
+	/* TODO: don't canonicalize value as string */
+	val =
+	    mpc_or(3, mpc_string("0"), mpc_string("1"), mpc_string("oneshot"));
+	return mpc_and(2, mpdf_single, mpc_string("single"), mpd_argument(val),
+	               free);
+}
+
 mpdf_fold(replay_gain_mode, MPD_ARG_STRING)
 
 static mpc_parser_t *
@@ -136,8 +150,8 @@ mpd_volume(void)
 mpc_parser_t *
 mpd_playback_cmds(void)
 {
-	return mpc_or(10, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
-	              mpd_mixrampdelay(), mpd_setvol(), mpd_random(),
-	              mpd_repeat(), mpd_replay_gain_mode(),
+	return mpc_or(11, mpd_consume(), mpd_crossfade(), mpd_mixrampdb(),
+	              mpd_mixrampdelay(), mpd_setvol(), mpd_single(),
+	              mpd_random(), mpd_repeat(), mpd_replay_gain_mode(),
 	              mpd_replay_gain_status(), mpd_volume());
 }
