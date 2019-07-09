@@ -17,6 +17,15 @@ mpd_pause(void)
 	               mpc_maybe(mpd_argument(mpd_binary())), free);
 }
 
+mpdf_fold(play, MPD_ARG_UINT)
+
+static mpc_parser_t *
+mpd_play(void)
+{
+	return mpc_and(2, mpdf_play, mpc_string("play"),
+	               mpd_argument(mpd_uint()), free);
+}
+
 mpdf_fold(seek, MPD_ARG_UINT MPD_ARG_FLOAT)
 
 static mpc_parser_t *
@@ -30,5 +39,5 @@ mpd_seek(void)
 mpc_parser_t *
 mpd_control_cmds(void)
 {
-	return mpc_or(3, mpd_next(), mpd_pause(), mpd_seek());
+	return mpc_or(4, mpd_next(), mpd_pause(), mpd_play(), mpd_seek());
 }
