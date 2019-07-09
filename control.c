@@ -35,6 +35,12 @@ mpd_playid(void)
 	               mpd_argument(mpd_uint()), free);
 }
 
+static mpc_parser_t *
+mpd_previous(void)
+{
+	return mpd_cmd_noarg("previous");
+}
+
 mpdf_fold(seek, MPD_ARG_UINT MPD_ARG_FLOAT)
 
 static mpc_parser_t *
@@ -48,6 +54,6 @@ mpd_seek(void)
 mpc_parser_t *
 mpd_control_cmds(void)
 {
-	return mpc_or(5, mpd_next(), mpd_pause(), mpd_play(), mpd_playid(),
-	              mpd_seek());
+	return mpc_or(6, mpd_next(), mpd_pause(), mpd_play(), mpd_playid(),
+	              mpd_seek(), mpd_previous());
 }
