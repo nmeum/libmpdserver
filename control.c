@@ -63,9 +63,15 @@ mpd_seekid(void)
 
 /* TODO: Implement seekcur, requires distinguishing +n and n */
 
+static mpc_parser_t *
+mpd_stop(void)
+{
+	return mpd_cmd_noarg("stop");
+}
+
 mpc_parser_t *
 mpd_control_cmds(void)
 {
-	return mpc_or(7, mpd_next(), mpd_pause(), mpd_play(), mpd_playid(),
-	              mpd_previous(), mpd_seek(), mpd_seekid());
+	return mpc_or(8, mpd_next(), mpd_pause(), mpd_play(), mpd_playid(),
+	              mpd_previous(), mpd_seek(), mpd_seekid(), mpd_stop());
 }
