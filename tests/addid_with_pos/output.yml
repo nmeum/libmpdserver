@@ -1,0 +1,6 @@
+name: addid
+argv:
+  - type: str
+    value: foo.mp3
+  - type: uint
+    value: 23
