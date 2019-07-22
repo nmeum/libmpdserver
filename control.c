@@ -51,9 +51,19 @@ mpd_seek(void)
 	               free, free);
 }
 
+mpdf_fold(seekid, MPD_ARG_UINT MPD_ARG_FLOAT)
+
+static mpc_parser_t *
+mpd_seekid(void)
+{
+	return mpc_and(3, mpdf_seekid, mpc_string("seekid"),
+	               mpd_argument(mpd_uint()), mpd_argument(mpd_float()),
+	               free, free);
+}
+
 mpc_parser_t *
 mpd_control_cmds(void)
 {
-	return mpc_or(6, mpd_next(), mpd_pause(), mpd_play(), mpd_playid(),
-	              mpd_seek(), mpd_previous());
+	return mpc_or(7, mpd_next(), mpd_pause(), mpd_play(), mpd_playid(),
+	              mpd_previous(), mpd_seek(), mpd_seekid());
 }
