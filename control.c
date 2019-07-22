@@ -61,6 +61,8 @@ mpd_seekid(void)
 	               free, free);
 }
 
+/* TODO: Implement seekcur, requires distinguishing +n and n */
+
 mpc_parser_t *
 mpd_control_cmds(void)
 {
