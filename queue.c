@@ -55,6 +55,16 @@ mpd_playlistfind(void)
 	               free, free);
 }
 
+mpdf_fold(plchanges, MPD_ARG_UINT mpd_opt_arg(MPD_ARG_RANGE))
+
+static mpc_parser_t *
+mpd_plchanges(void)
+{
+	return mpc_and(3, mpdf_plchanges, mpc_string("plchanges"),
+	               mpd_argument(mpd_uint()),
+	               mpc_maybe(mpd_argument(mpd_range())), free, free);
+}
+
 mpdf_fold(rangeid, MPD_ARG_UINT MPD_ARG_RANGE)
 
 static mpc_parser_t *
@@ -68,6 +78,7 @@ mpd_rangeid(void)
 mpc_parser_t *
 mpd_queue_cmds(void)
 {
-	return mpc_or(7, mpd_add(), mpd_clear(), mpd_addid(), mpd_delete(),
-	              mpd_moveid(), mpd_playlistfind(), mpd_rangeid());
+	return mpc_or(8, mpd_add(), mpd_clear(), mpd_addid(), mpd_delete(),
+	              mpd_moveid(), mpd_playlistfind(), mpd_plchanges(),
+	              mpd_rangeid());
 }
