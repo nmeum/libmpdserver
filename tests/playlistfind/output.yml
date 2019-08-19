@@ -1,0 +1,6 @@
+name: playlistfind
+argv:
+  - type: str
+    value: artist
+  - type: str
+    value: bar
