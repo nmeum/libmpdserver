@@ -44,6 +44,16 @@ mpd_delete(void)
 	               mpd_argument(mpd_range_with_single()), free);
 }
 
+mpdf_fold(move, MPD_ARG_RANGE MPD_ARG_INT)
+
+static mpc_parser_t *
+mpd_move(void)
+{
+	return mpc_and(3, mpdf_move, mpc_string("move"),
+	               mpd_argument(mpd_range_with_single()),
+	               mpd_argument(mpd_int()), free, free);
+}
+
 mpdf_fold(moveid, MPD_ARG_UINT MPD_ARG_INT)
 
 static mpc_parser_t *
@@ -87,7 +97,7 @@ mpd_rangeid(void)
 mpc_parser_t *
 mpd_queue_cmds(void)
 {
-	return mpc_or(9, mpd_add(), mpd_addid(), mpd_clear(), mpd_delete(),
-	              mpd_deleteid(), mpd_moveid(), mpd_playlistfind(),
-	              mpd_plchanges(), mpd_rangeid());
+	return mpc_or(10, mpd_add(), mpd_addid(), mpd_clear(), mpd_delete(),
+	              mpd_deleteid(), mpd_move(), mpd_moveid(),
+	              mpd_playlistfind(), mpd_plchanges(), mpd_rangeid());
 }

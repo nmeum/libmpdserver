@@ -1,0 +1,6 @@
+name: move
+argv:
+  - type: range
+    value: 23:23
+  - type: int
+    value: -42
