@@ -26,6 +26,15 @@ mpd_clear(void)
 	return mpd_cmd_noarg("clear");
 }
 
+mpdf_fold(deleteid, MPD_ARG_UINT)
+
+static mpc_parser_t *
+mpd_deleteid(void)
+{
+	return mpc_and(2, mpdf_deleteid, mpc_string("deleteid"),
+	               mpd_argument(mpd_uint()), free);
+}
+
 mpdf_fold(delete, MPD_ARG_RANGE)
 
 static mpc_parser_t *
@@ -78,7 +87,7 @@ mpd_rangeid(void)
 mpc_parser_t *
 mpd_queue_cmds(void)
 {
-	return mpc_or(8, mpd_add(), mpd_addid(), mpd_clear(), mpd_delete(),
-	              mpd_moveid(), mpd_playlistfind(), mpd_plchanges(),
-	              mpd_rangeid());
+	return mpc_or(9, mpd_add(), mpd_addid(), mpd_clear(), mpd_delete(),
+	              mpd_deleteid(), mpd_moveid(), mpd_playlistfind(),
+	              mpd_plchanges(), mpd_rangeid());
 }
