@@ -1,0 +1,4 @@
+name: playlistinfo
+argv:
+  - type: range
+    value: 23:42
