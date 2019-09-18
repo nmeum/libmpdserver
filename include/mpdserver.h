@@ -2,7 +2,6 @@
 #define MPDSERVER_H
 
 #include <stdbool.h>
-#include <stdio.h>
 
 #include <sys/types.h>
 
@@ -69,7 +68,10 @@ struct _mpd_argument_t {
 	} v;
 };
 
-mpd_command_t *mpd_parse(FILE *);
+/* When reading mpd_parse() input from a stream it is insufficient to
+ * simply read a single line since lists are mulitline commands. */
+
+mpd_command_t *mpd_parse(char *);
 void mpd_free_command(mpd_command_t *);
 
 #endif
