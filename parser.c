@@ -146,6 +146,23 @@ mpdf_uint(mpc_val_t *val)
 	return uval;
 }
 
+static mpc_val_t *
+mpdf_command_eof(mpc_val_t *val)
+{
+	mpd_command_t *cmd;
+
+	cmd = mpd_new_command("EOF", 0);
+
+	free(val);
+	return cmd;
+}
+
+static mpc_parser_t *
+mpd_empty(void)
+{
+	return mpc_apply(mpc_eoi(), mpdf_command_eof);
+}
+
 mpc_parser_t *
 mpd_cmd_noarg(char *cmdstr)
 {
@@ -274,7 +291,7 @@ mpd_parse(FILE *stream)
 	mpc_result_t r;
 
 	cmd = NULL;
-	par = mpd_command();
+	par = mpc_or(2, mpd_command(), mpd_empty());
 
 	if (mpc_parse_pipe("", stream, par, &r)) {
 		cmd = (mpd_command_t *)r.output;
