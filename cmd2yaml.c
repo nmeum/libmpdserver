@@ -138,16 +138,71 @@ format_cmd(int ident, mpd_command_t *cmd)
 	}
 }
 
+static bool
+is_lststart(char *str)
+{
+	return !strcmp(str, "command_list_begin\n") ||
+	       !(strcmp(str, "command_list_ok_begin\n"));
+}
+
+static bool
+is_lstend(char *str)
+{
+	return !strcmp(str, "command_list_end\n");
+}
+
+static char *
+read_command(FILE *stream)
+{
+	size_t nlen;
+	static size_t llen;
+	static char *line, *result;
+
+	while (getline(&line, &llen, stream) != -1) {
+		if (!result) {
+			if (!(result = strdup(line)))
+				err(EXIT_FAILURE, "strdup failed");
+
+			if (is_lststart(line))
+				continue;
+			else
+				break;
+		}
+
+		nlen = strlen(result) + strlen(line) + 1;
+		if (!(result = realloc(result, nlen)))
+			err(EXIT_FAILURE, "realloc failed");
+		strncpy(&result[strlen(result)], line, nlen - strlen(result));
+
+		if (is_lstend(line))
+			break;
+	}
+
+	free(line);
+	if (ferror(stdin))
+		err(EXIT_FAILURE, "ferror failed");
+
+	return result;
+}
+
 int
 main(void)
 {
+	int ret;
+	char *input;
 	mpd_command_t *cmd;
 
-	if (!(cmd = mpd_parse(stdin)))
-		return EXIT_FAILURE;
+	input = read_command(stdin); /* NULL if empty */
+	if (!(cmd = mpd_parse((input) ? input : ""))) {
+		ret = EXIT_FAILURE;
+		goto exit;
+	}
 
 	format_cmd(0, cmd);
 	mpd_free_command(cmd);
 
-	return EXIT_SUCCESS;
+	ret = EXIT_SUCCESS;
+exit:
+	free(input);
+	return ret;
 }

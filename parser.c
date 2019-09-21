@@ -1,6 +1,4 @@
 #include <errno.h>
-#include <libgen.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
@@ -264,7 +262,7 @@ mpd_command_primitive(void)
 }
 
 mpd_command_t *
-mpd_parse(FILE *stream)
+mpd_parse(char *input)
 {
 	size_t i;
 	mpd_expression_t *expr;
@@ -276,7 +274,7 @@ mpd_parse(FILE *stream)
 	cmd = NULL;
 	par = mpd_command();
 
-	if (mpc_parse_pipe("", stream, par, &r)) {
+	if (mpc_parse("", input, par, &r)) {
 		cmd = (mpd_command_t *)r.output;
 	} else {
 		mpc_err_delete(r.error);

@@ -11,8 +11,9 @@ for test in *; do
 	name=${test##*/}
 	printf "Checking test input '%s': " "${name}"
 
-	valgrind --error-exitcode=42 --leak-check=full \
-		--show-leak-kinds=all --log-file="${logfile}" \
+	valgrind --exit-on-first-error=yes --error-exitcode=42 \
+		--leak-check=full --show-leak-kinds=all \
+		--log-file="${logfile}" \
 		"${TESTRUNNER}" < "${test}/input" >/dev/null
 
 	if [ $? -eq 42 ]; then
