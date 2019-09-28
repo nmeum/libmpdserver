@@ -4,7 +4,7 @@ OBJECTS = $(SOURCES:.c=.o)
 HEADERS = fns.h include/mpdserver.h
 
 CFLAGS ?= -O0 -g -Werror
-CFLAGS += -std=c99 -D_POSIX_C_SOURCE=200809L
+CFLAGS += -fPIC -std=c99 -D_POSIX_C_SOURCE=200809L
 CFLAGS += -Wpedantic -Wall -Wextra -Wconversion -Wmissing-prototypes \
 	-Wpointer-arith -Wstrict-prototypes -Wshadow -Wcast-align
 
@@ -12,6 +12,8 @@ CPPFLAGS += -I./include -I./vendor/mpc
 
 libmpdserver.a: mpc.o $(OBJECTS)
 	$(AR) rcs $@ $^
+libmpdserver.so:  mpc.o $(OBJECTS)
+	$(LD) -o $@ $^ -shared $(LDFLAGS)
 cmd2yaml: cmd2yaml.o libmpdserver.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 

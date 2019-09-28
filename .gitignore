@@ -1,3 +1,4 @@
 *.o
 libmpdserver.a
+libmpdserver.so
 cmd2yaml
