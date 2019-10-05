@@ -5,7 +5,9 @@ Parser combinator library for [MPD][musicpd] client commands.
 ## Status
 
 Currently primarily a toy project for experimenting with parser
-combinators. Buggy, incomplete and unstable at the moment.
+combinators. Buggy, incomplete and unstable at the moment. Nonetheless,
+I started implementing a custom [MPD server][mpvd github] with this
+library.
 
 ## Design Goals
 
@@ -47,3 +49,4 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 [musicpd]: https://musicpd.org/
 [langsec website]: http://langsec.org/
 [curing the vulnerable parsers]: https://www.usenix.org/publications/login/spring2017/bratus
+[mpvd github]: https://github.com/nmeum/mpvd
