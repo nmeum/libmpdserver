@@ -17,22 +17,22 @@ mpd_pause(void)
 	               mpc_maybe(mpd_argument(mpd_binary())), free);
 }
 
-mpdf_fold(play, MPD_ARG_UINT)
+mpdf_fold(play, mpd_opt_arg(MPD_ARG_UINT))
 
 static mpc_parser_t *
 mpd_play(void)
 {
 	return mpc_and(2, mpdf_play, mpc_string("play"),
-	               mpd_argument(mpd_uint()), free);
+	               mpc_maybe(mpd_argument(mpd_uint())), free);
 }
 
-mpdf_fold(playid, MPD_ARG_UINT)
+mpdf_fold(playid, mpd_opt_arg(MPD_ARG_UINT))
 
 static mpc_parser_t *
 mpd_playid(void)
 {
 	return mpc_and(2, mpdf_playid, mpc_string("playid"),
-	               mpd_argument(mpd_uint()), free);
+	               mpc_maybe(mpd_argument(mpd_uint())), free);
 }
 
 static mpc_parser_t *
