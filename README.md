@@ -31,6 +31,12 @@ Perform some sanity check with valgrind using:
 
 	$ make valgrind
 
+## Known Issues
+
+* Not all double quoted arguments are escaped before further processing.
+  This means that commands like `pause "\0"` are incorrectly considered
+  invalid.
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it

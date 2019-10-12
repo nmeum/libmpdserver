@@ -153,12 +153,21 @@ mpd_cmd_noarg(char *cmdstr)
 mpc_parser_t *
 mpd_argument(mpc_parser_t *a)
 {
-	mpc_parser_t *sep, *spaces;
+	mpc_parser_t *sep, *spaces, *quoted;
 
 	spaces = mpc_many1(mpcf_fst_free, mpd_whitespace());
 	sep = mpc_expect(spaces, "argument");
 
-	return mpc_and(2, mpcf_snd_free, sep, a, free);
+	/* All MPD arguments can be enclosed in quotes. However, some
+	 * argument parsers, e.g. mpd_string, handle quotes explicitly,
+	 * thus they may have already been parsed at this point and are
+	 * only optional. */
+
+	/* TODO: unescape all arguments before doing further parsing */
+
+	quoted = mpc_and(3, mpcf_snd_free, mpc_maybe(mpc_string("\"")),
+	                 mpc_copy(a), mpc_maybe(mpc_string("\"")), free, free);
+	return mpc_and(2, mpcf_snd_free, sep, mpc_or(2, a, quoted), free);
 }
 
 mpc_parser_t *
