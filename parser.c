@@ -165,8 +165,7 @@ mpd_argument(mpc_parser_t *a)
 
 	/* TODO: unescape all arguments before doing further parsing */
 
-	quoted = mpc_and(3, mpcf_snd_free, mpc_maybe(mpc_string("\"")),
-	                 mpc_copy(a), mpc_maybe(mpc_string("\"")), free, free);
+	quoted = mpc_between(mpc_copy(a), free, "\"", "\"");
 	return mpc_and(2, mpcf_snd_free, sep, mpc_or(2, a, quoted), free);
 }
 
