@@ -286,6 +286,9 @@ mpd_parse(char *input)
 	if (mpc_parse("", input, par, &r)) {
 		cmd = (mpd_command_t *)r.output;
 	} else {
+#ifdef MPC_PARSER_DEBUG
+		mpc_err_print(r.error);
+#endif
 		mpc_err_delete(r.error);
 		goto ret;
 	}
