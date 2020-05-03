@@ -53,6 +53,7 @@
 #define MPD_ARG_UINT mpd_arg(MPD_VAL_UINT, uval, *(unsigned int *), 1)
 #define MPD_ARG_FLOAT mpd_arg(MPD_VAL_FLOAT, fval, *(float *), 1)
 #define MPD_ARG_BOOL mpd_arg(MPD_VAL_BOOL, bval, *(int *), 1)
+#define MPD_ARG_LIST mpd_arg(MPD_VAL_LIST, lval, (mpd_list_t *), 0)
 #define MPD_ARG_RANGE mpd_arg(MPD_VAL_RANGE, rval, *(mpd_range_t *), 1)
 #define MPD_ARG_STRING mpd_arg(MPD_VAL_STR, sval, (char *), 0)
 #define MPD_ARG_EXPR mpd_arg(MPD_VAL_EXPR_STR, sval, (char *), 0)
@@ -80,6 +81,7 @@ mpc_parser_t *mpd_uint(void);
 mpc_parser_t *mpd_binary(void);
 mpc_parser_t *mpd_float_digits(void);
 mpc_parser_t *mpd_float(void);
+mpc_parser_t *mpd_list(void);
 mpc_parser_t *mpd_range(void);
 mpc_parser_t *mpd_range_with_single(void);
 mpc_parser_t *mpd_string(void);
