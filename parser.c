@@ -263,8 +263,9 @@ mpd_command_primitive(void)
 	mpc_parser_t *cmd;
 
 	/* TODO: mpc_or all parsers */
-	cmd = mpc_or(5, mpd_playback_cmds(), mpd_status_cmds(),
-	             mpd_queue_cmds(), mpd_control_cmds(), mpd_database_cmds());
+	cmd = mpc_or(6, mpd_playback_cmds(), mpd_status_cmds(),
+	             mpd_queue_cmds(), mpd_control_cmds(), mpd_database_cmds(),
+	             mpd_connection_cmds());
 
 	return mpc_and(2, mpcf_fst_free, cmd, mpc_newline(), mpd_free_command);
 }

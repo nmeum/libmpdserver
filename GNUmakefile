@@ -1,5 +1,5 @@
 SOURCES = parser.c playback.c status.c control.c queue.c \
-	  database.c expr.c list.c util.c
+	  database.c expr.c list.c util.c connection.c
 OBJECTS = $(SOURCES:.c=.o)
 HEADERS = fns.h include/mpdserver.h
 
