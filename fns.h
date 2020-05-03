@@ -97,6 +97,7 @@ void *xmalloc(size_t);
 char *xstrdup(char *);
 void *xrealloc(void *, size_t);
 char *lowercase(char *);
+mpd_list_t *mpd_new_list(char *);
 mpd_range_t *mpd_new_range(size_t, ssize_t);
 mpd_command_t *mpd_new_command(char *, size_t);
 void mpd_free_expression(void *);
