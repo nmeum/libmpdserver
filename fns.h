@@ -22,8 +22,6 @@
 				--n;                                           \
                                                                                \
 		assert(n > 0);                                                 \
-		assert(!strcmp(xs[0], #I));                                    \
-                                                                               \
 		cmd = mpd_new_command(#I, (size_t)n - 1);                      \
                                                                                \
 		i = 0;                                                         \
