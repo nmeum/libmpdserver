@@ -1,0 +1,7 @@
+name: tagtypes_disable
+argv:
+  - type: list
+    value:
+      - Artist
+      - Album
+      - Date
