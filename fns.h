@@ -22,12 +22,11 @@
 				--n;                                           \
                                                                                \
 		assert(n > 0);                                                 \
-		cmd = mpd_new_command(#I, (size_t)n - 1);                      \
+		cmd = mpd_new_command(xs[0], (size_t)n - 1);                   \
                                                                                \
 		i = 0;                                                         \
 		__VA_ARGS__                                                    \
                                                                                \
-		free(xs[0]);                                                   \
 		return cmd;                                                    \
 	}
 
