@@ -25,9 +25,15 @@ mpd_tagtypes_enable(void)
 	               mpd_subcommand("tagtypes", "enable"), mpd_list(), free);
 }
 
+static mpc_parser_t *
+mpd_tagtypes(void)
+{
+	return mpd_cmd_noarg("tagtypes");
+}
+
 mpc_parser_t *
 mpd_connection_cmds(void)
 {
-	return mpc_or(3, mpd_ping(), mpd_tagtypes_disable(),
-	              mpd_tagtypes_enable());
+	return mpc_or(4, mpd_ping(), mpd_tagtypes_disable(),
+	              mpd_tagtypes_enable(), mpd_tagtypes());
 }
