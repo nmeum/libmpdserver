@@ -86,6 +86,7 @@ mpc_parser_t *mpd_string_case(void);
 mpc_parser_t *mpd_uri(void);
 mpc_parser_t *mpd_command_primitive(void);
 mpc_parser_t *mpd_cmd_noarg(char *);
+mpc_parser_t *mpd_subcommand(char *, char *);
 mpc_parser_t *mpd_whitespace(void);
 mpc_parser_t *mpd_tag_name(void);
 

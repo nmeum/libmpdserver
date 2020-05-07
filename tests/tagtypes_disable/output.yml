@@ -1,4 +1,4 @@
-name: tagtypes_disable
+name: tagtypes disable
 argv:
   - type: list
     value:

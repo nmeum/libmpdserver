@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <stdbool.h>
 
 #include <sys/types.h>
 
@@ -160,18 +161,28 @@ mpdf_uint(mpc_val_t *val)
 	return uval;
 }
 
+static mpc_val_t *
+mpdf_space(mpc_val_t *val)
+{
+	free(val);
+	return xstrdup(" ");
+}
+
 mpc_parser_t *
 mpd_cmd_noarg(char *cmdstr)
 {
 	return mpc_apply(mpc_string(cmdstr), mpdf_command_noarg);
 }
 
-mpc_parser_t *
-mpd_argument(mpc_parser_t *a)
+static mpc_parser_t *
+_mpd_argument(mpc_parser_t *a, bool keepsep)
 {
 	mpc_parser_t *sep, *spaces, *quoted;
 
+	/* TODO: Use freefold <https://github.com/orangeduck/mpc/pull/129> */
 	spaces = mpc_many1(mpcf_fst_free, mpd_whitespace());
+	if (keepsep)
+		spaces = mpc_apply(spaces, mpdf_space);
 	sep = mpc_expect(spaces, "argument");
 
 	/* All MPD arguments can be enclosed in quotes. However, some
@@ -182,7 +193,22 @@ mpd_argument(mpc_parser_t *a)
 	/* TODO: unescape all arguments before doing further parsing */
 
 	quoted = mpc_between(mpc_copy(a), free, "\"", "\"");
-	return mpc_and(2, mpcf_snd_free, sep, mpc_or(2, a, quoted), free);
+	return mpc_and(2, (keepsep) ? mpcf_strfold : mpcf_snd_free,
+	              sep, mpc_or(2, a, quoted), free);
+}
+
+mpc_parser_t *
+mpd_argument(mpc_parser_t *a)
+{
+	return _mpd_argument(a, false);
+}
+
+mpc_parser_t *
+mpd_subcommand(char *cmd, char *subcmd)
+{
+	return mpc_and(2, mpcf_strfold, mpc_string(cmd),
+	               _mpd_argument(mpc_string(subcmd), true),
+	               free, free);
 }
 
 mpc_parser_t *
