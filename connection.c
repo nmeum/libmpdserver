@@ -13,8 +13,7 @@ static mpc_parser_t *
 mpd_tagtypes_disable(void)
 {
 	return mpc_and(2, mpdf_tagtypes_disable,
-	               mpd_subcommand("tagtypes", "disable"),
-	               mpd_list(), free);
+	               mpd_subcommand("tagtypes", "disable"), mpd_list(), free);
 }
 
 mpc_parser_t *

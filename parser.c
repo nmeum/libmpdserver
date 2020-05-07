@@ -1,8 +1,8 @@
 #include <errno.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include <stdbool.h>
 
 #include <sys/types.h>
 
@@ -193,8 +193,8 @@ _mpd_argument(mpc_parser_t *a, bool keepsep)
 	/* TODO: unescape all arguments before doing further parsing */
 
 	quoted = mpc_between(mpc_copy(a), free, "\"", "\"");
-	return mpc_and(2, (keepsep) ? mpcf_strfold : mpcf_snd_free,
-	              sep, mpc_or(2, a, quoted), free);
+	return mpc_and(2, (keepsep) ? mpcf_strfold : mpcf_snd_free, sep,
+	               mpc_or(2, a, quoted), free);
 }
 
 mpc_parser_t *
@@ -207,8 +207,7 @@ mpc_parser_t *
 mpd_subcommand(char *cmd, char *subcmd)
 {
 	return mpc_and(2, mpcf_strfold, mpc_string(cmd),
-	               _mpd_argument(mpc_string(subcmd), true),
-	               free, free);
+	               _mpd_argument(mpc_string(subcmd), true), free, free);
 }
 
 mpc_parser_t *
