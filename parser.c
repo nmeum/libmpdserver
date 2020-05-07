@@ -86,7 +86,7 @@ mpdf_unescape(mpc_val_t *val)
 	return newstr;
 }
 
-static mpc_val_t *
+mpc_val_t *
 mpdf_command_noarg(mpc_val_t *val)
 {
 	mpd_command_t *cmd;

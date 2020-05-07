@@ -90,6 +90,7 @@ mpc_parser_t *mpd_subcommand(char *, char *);
 mpc_parser_t *mpd_whitespace(void);
 mpc_parser_t *mpd_tag_name(void);
 
+mpc_val_t *mpdf_command_noarg(mpc_val_t *);
 mpc_val_t *mpdf_lowercase(mpc_val_t *);
 mpc_val_t *mpdf_unescape(mpc_val_t *);
 
