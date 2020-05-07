@@ -70,7 +70,7 @@ mpd_new_command(char *name, size_t argc)
 	mpd_command_t *cmd;
 
 	cmd = xmalloc(sizeof(*cmd));
-	cmd->name = (name) ? xstrdup(name) : NULL;
+	cmd->name = name; /* might be NULL */
 	cmd->argc = argc;
 
 	if (argc > 0)

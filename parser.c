@@ -94,7 +94,6 @@ mpdf_command_noarg(mpc_val_t *val)
 	str = (char *)val;
 	cmd = mpd_new_command(str, 0);
 
-	free(val);
 	return cmd;
 }
 
