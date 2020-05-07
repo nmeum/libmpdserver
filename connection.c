@@ -8,6 +8,13 @@ mpd_ping(void)
 }
 
 static mpc_parser_t *
+mpd_tagtypes_clear(void)
+{
+	return mpc_apply(mpd_subcommand("tagtypes", "clear"),
+	                 mpdf_command_noarg);
+}
+
+static mpc_parser_t *
 mpd_tagtypes_all(void)
 {
 	return mpc_apply(mpd_subcommand("tagtypes", "all"), mpdf_command_noarg);
@@ -40,6 +47,7 @@ mpd_tagtypes(void)
 mpc_parser_t *
 mpd_connection_cmds(void)
 {
-	return mpc_or(5, mpd_ping(), mpd_tagtypes_all(), mpd_tagtypes_disable(),
-	              mpd_tagtypes_enable(), mpd_tagtypes());
+	return mpc_or(6, mpd_ping(), mpd_tagtypes_all(), mpd_tagtypes_clear(),
+	              mpd_tagtypes_disable(), mpd_tagtypes_enable(),
+	              mpd_tagtypes());
 }
