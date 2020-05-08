@@ -52,18 +52,6 @@ lowercase(char *str)
 	return str;
 }
 
-mpd_list_t *
-mpd_new_list(char *value)
-{
-	mpd_list_t *list;
-
-	list = xmalloc(sizeof(*list));
-	list->value = value;
-	list->next = NULL;
-
-	return list;
-}
-
 mpd_range_t *
 mpd_new_range(size_t start, ssize_t end)
 {
@@ -93,19 +81,6 @@ mpd_new_command(char *name, size_t argc)
 	return cmd;
 }
 
-static void
-mpd_free_list(mpd_list_t *list)
-{
-	mpd_list_t *c, *n;
-
-	c = list;
-	while (c) {
-		n = c->next;
-		free(c->value);
-		free(c);
-		c = n;
-	}
-}
 
 static void
 mpd_free_argument(mpd_argument_t *arg)
@@ -116,8 +91,6 @@ mpd_free_argument(mpd_argument_t *arg)
 		mpd_free_command(arg->v.cmdval);
 	else if (arg->type == MPD_VAL_EXPR)
 		mpd_free_expression(arg->v.eval);
-	else if (arg->type == MPD_VAL_LIST)
-		mpd_free_list(arg->v.lval);
 	free(arg);
 }
 

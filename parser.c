@@ -110,23 +110,6 @@ mpdf_change_name(mpc_val_t *val, void *name)
 }
 
 static mpc_val_t *
-mpdf_fold_list(int n, mpc_val_t **xs)
-{
-	int i;
-	mpd_list_t *root, *prev;
-
-	assert(n >= 1);
-	prev = root = mpd_new_list(xs[0]);
-
-	for (i = 1; i < n; i++) {
-		prev->next = mpd_new_list(xs[i]);
-		prev = prev->next;
-	}
-
-	return root;
-}
-
-static mpc_val_t *
 mpdf_fold_range(int n, mpc_val_t **xs)
 {
 	int i;
@@ -295,12 +278,6 @@ mpc_parser_t *
 mpd_string_case(void)
 {
 	return mpc_apply(mpd_string(), mpdf_lowercase);
-}
-
-mpc_parser_t *
-mpd_list(void)
-{
-	return mpc_many1(mpdf_fold_list, mpd_argument(mpd_string()));
 }
 
 mpc_parser_t *

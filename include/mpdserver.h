@@ -11,7 +11,6 @@ typedef enum {
 	MPD_VAL_STR,
 	MPD_VAL_FLOAT,
 	MPD_VAL_BOOL,
-	MPD_VAL_LIST,
 	MPD_VAL_RANGE,
 	MPD_VAL_EXPR,
 	MPD_VAL_CMD,
@@ -35,13 +34,6 @@ typedef struct {
 	size_t argc;
 	mpd_argument_t **argv;
 } mpd_command_t;
-
-typedef struct _mpd_list_t mpd_list_t;
-
-struct _mpd_list_t {
-	char *value;
-	mpd_list_t *next;
-};
 
 typedef struct _mpd_expression_t mpd_expression_t;
 
@@ -70,7 +62,6 @@ struct _mpd_argument_t {
 		char *sval;
 		float fval;
 		bool bval;
-		mpd_list_t *lval;
 		mpd_range_t rval;
 		mpd_expression_t *eval;
 		mpd_command_t *cmdval;
