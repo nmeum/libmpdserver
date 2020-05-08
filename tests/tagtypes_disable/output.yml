@@ -1,7 +1,8 @@
 name: tagtypes disable
 argv:
-  - type: list
-    value:
-      - Artist
-      - Album
-      - Date
+  - type: str
+    value: Artist
+  - type: str
+    value: Album
+  - type: str
+    value: Date

@@ -24,7 +24,23 @@
 		assert(n > 0);                                                 \
 		cmd = mpd_new_command(xs[0], (size_t)n - 1);                   \
                                                                                \
-		i = 0;                                                         \
+		i = 1;                                                         \
+		j = 0;                                                         \
+		__VA_ARGS__                                                    \
+                                                                               \
+		return cmd;                                                    \
+	}
+
+#define mpdf_fold_args(I, N, ...)                                              \
+	static mpc_val_t *mpdf_##I(int n, mpc_val_t **xs)                      \
+	{                                                                      \
+		int i, j;                                                      \
+		mpd_command_t *cmd;                                            \
+                                                                               \
+		assert(n > 0);                                                 \
+		cmd = mpd_new_command(xstrdup(N), (size_t)n);                  \
+                                                                               \
+		i = j = 0;                                                     \
 		__VA_ARGS__                                                    \
                                                                                \
 		return cmd;                                                    \
@@ -32,17 +48,24 @@
 
 #define mpd_arg(TYPE, MEMBER, CONV, FREE)                                      \
 	do {                                                                   \
-		cmd->argv[i] = xmalloc(sizeof(mpd_argument_t));                \
-		cmd->argv[i]->type = TYPE;                                     \
-		cmd->argv[i]->v.MEMBER = CONV xs[i + 1];                       \
+		cmd->argv[j] = xmalloc(sizeof(mpd_argument_t));                \
+		cmd->argv[j]->type = TYPE;                                     \
+		cmd->argv[j]->v.MEMBER = CONV xs[i];                           \
                                                                                \
-		i++;                                                           \
 		if (FREE)                                                      \
 			free(xs[i]);                                           \
+                                                                               \
+		i++;                                                           \
+		j++;                                                           \
 	} while (0);
 
+#define mpd_arg_many(ARG)                                                      \
+	while (i < n) {                                                        \
+		ARG                                                            \
+	}
+
 #define mpd_opt_arg(ARG)                                                       \
-	if (n > i + 1) {                                                       \
+	if (n > i) {                                                           \
 		ARG                                                            \
 	}
 
@@ -90,6 +113,7 @@ mpc_parser_t *mpd_subcommand(char *, char *);
 mpc_parser_t *mpd_whitespace(void);
 mpc_parser_t *mpd_tag_name(void);
 
+mpc_val_t *mpdf_change_name(mpc_val_t *, void *);
 mpc_val_t *mpdf_command_noarg(mpc_val_t *);
 mpc_val_t *mpdf_lowercase(mpc_val_t *);
 mpc_val_t *mpdf_unescape(mpc_val_t *);

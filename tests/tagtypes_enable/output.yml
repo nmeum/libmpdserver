@@ -1,6 +1,6 @@
 name: tagtypes enable
 argv:
-  - type: list
-    value:
-      - Album
-      - Date
+  - type: str
+    value: Album
+  - type: str
+    value: Date

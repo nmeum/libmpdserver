@@ -98,6 +98,17 @@ mpdf_command_noarg(mpc_val_t *val)
 	return cmd;
 }
 
+mpc_val_t *
+mpdf_change_name(mpc_val_t *val, void *name)
+{
+	mpd_command_t *cmd;
+
+	cmd = (mpd_command_t *)val;
+	cmd->name = xstrdup((char *)name);
+
+	return cmd;
+}
+
 static mpc_val_t *
 mpdf_fold_list(int n, mpc_val_t **xs)
 {
