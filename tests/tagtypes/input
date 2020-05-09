@@ -1,1 +1,5 @@
+command_list_begin
 tagtypes
+tagtypes all
+tagtypes clear
+command_list_end

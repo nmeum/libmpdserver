@@ -1,2 +1,18 @@
-name: tagtypes
-argv: []
+name: command_list_begin
+argv:
+  - type: cmd
+    value:
+      name: tagtypes
+      argv: []
+  - type: cmd
+    value:
+      name: tagtypes
+      argv:
+        - type: str
+          value: all
+  - type: cmd
+    value:
+      name: tagtypes
+      argv:
+        - type: str
+          value: clear

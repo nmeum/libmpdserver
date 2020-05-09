@@ -47,27 +47,25 @@ mpdf_cmdfold(int n, mpc_val_t **xs)
 	return cmd;
 }
 
+mpdf_fold(tagtypes, MPD_ARG_STRING)
+
 static mpc_parser_t *
 mpd_ping(void)
 {
 	return mpd_cmd_noarg("ping");
 }
 
-mpdf_fold(tagtypes_clear, MPD_ARG_STRING)
-
 static mpc_parser_t *
 mpd_tagtypes_clear(void)
 {
-	return mpc_and(2, mpdf_tagtypes_clear, mpc_string("tagtypes"),
+	return mpc_and(2, mpdf_tagtypes, mpc_string("tagtypes"),
 	               mpd_argument(mpc_string("clear")), free);
 }
-
-mpdf_fold(tagtypes_all, MPD_ARG_STRING)
 
 static mpc_parser_t *
 mpd_tagtypes_all(void)
 {
-	return mpc_and(2, mpdf_tagtypes_all, mpc_string("tagtypes"),
+	return mpc_and(2, mpdf_tagtypes, mpc_string("tagtypes"),
 	               mpd_argument(mpc_string("all")), free);
 }
 
