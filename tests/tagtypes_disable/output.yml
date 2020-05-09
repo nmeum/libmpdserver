@@ -1,0 +1,10 @@
+name: tagtypes
+argv:
+  - type: str
+    value: disable
+  - type: str
+    value: Artist
+  - type: str
+    value: Album
+  - type: str
+    value: Date

@@ -1,0 +1,8 @@
+name: tagtypes
+argv:
+  - type: str
+    value: enable
+  - type: str
+    value: Album
+  - type: str
+    value: Date
