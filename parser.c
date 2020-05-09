@@ -154,7 +154,7 @@ mpd_argument(mpc_parser_t *a)
 {
 	mpc_parser_t *sep, *spaces, *quoted;
 
-	spaces = mpc_many1(mpcf_fst_free, mpd_whitespace());
+	spaces = mpc_many1(mpcf_freefold, mpd_whitespace());
 	sep = mpc_expect(spaces, "argument");
 
 	/* All MPD arguments can be enclosed in quotes. However, some
